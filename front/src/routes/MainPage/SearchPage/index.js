@@ -5,7 +5,7 @@ class SearchPage extends React.Component{
     render(){
         return(    
             <div id="colorlib-main">
-                <section className="ftco-section ftco-no-pt ftco-no-pb">
+                <section className="ftco-no-pt ftco-no-pb">
                 <div className="container px-0">
                     <div className="row no-gutters">
                         <div className="col-md-12 blog-wrap">

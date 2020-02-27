@@ -5,20 +5,18 @@
 import React from 'react';
 import {connect} from 'dva';
 import Navigation from './Navigation';
-import { Router, Route, Switch } from 'dva/router';
-import AdPage from './AdPage'
-import SearchPage from './SearchPage'
 import './style.css'
 class MainPage extends React.Component{
+    sideBar(){
+        const path = window.location.pathname;
+    return path.includes('DetailPage') || path.includes('RestaurantPage')
+    }
     render(){
         return(
                 <div id="colorlib-page">
-                    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
-                    <Navigation history={this.props.history}/>
-                    <Switch>
-                        <Route path='/' exact component={AdPage}/>
-                        <Route path='/SearchPage' component={SearchPage}/>
-                    </Switch>
+                    {!this.sideBar()?<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>:null}
+                    {!this.sideBar()?<Navigation history={this.props.history}/>:null}
+                    {this.props.children}
                 </div>   
             )
     }

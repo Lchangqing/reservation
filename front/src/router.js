@@ -10,11 +10,14 @@ function exactPathFromRoutes (routes){
     <Route key={index} path={item.path} exact={item.exact} component={item.component} />
   ))
 }
+
 function RouterConfig({ history }) {
   return (
     <Router history={history}>
       <Switch>
-        <Route path="/"  component={MainPage} />
+        <MainPage>
+          {exactPathFromRoutes(routes)}
+        </MainPage>
       </Switch>
     </Router>
   );

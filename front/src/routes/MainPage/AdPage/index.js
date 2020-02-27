@@ -6,7 +6,7 @@ class AdPage extends React.Component{
     render(){
         return(
             <div id="colorlib-main">
-                <section className="ftco-section ftco-no-pt ftco-no-pb bg-light">
+                <section className="ftco-no-pt ftco-no-pb bg-light">
                     <div className="container px-0">
                         <div className="row no-gutters">
                             <div className="col-md-4 d-flex">
