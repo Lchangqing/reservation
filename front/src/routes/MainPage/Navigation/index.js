@@ -7,7 +7,7 @@ import {connect} from 'dva';
 class Navigation extends React.Component{
    render(){
        return(
-		<aside id="colorlib-aside" role="complementary" className="js-fullheight img" style={{'backgroundImage':'url(images/sidebar-bg.jpg)'}}>
+		<aside id="colorlib-aside" role="complementary" className="js-fullheight img" style={{'backgroundImage':'url(images2/insta-1.jpg)'}}>
 			<h1 id="colorlib-logo" className="mb-4"><a href="index.html">订餐吧</a></h1>
 			<nav id="colorlib-main-menu" role="navigation">
 				<ul>

@@ -1,0 +1,15 @@
+
+.cq-meta{
+    margin-bottom: -1rem;
+}
+.cq-address{
+    display: block;
+}
+.cq-description{
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+}
