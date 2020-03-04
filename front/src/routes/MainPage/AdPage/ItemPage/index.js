@@ -24,7 +24,7 @@ class ItemPage extends React.Component{
                             </p>
                         </div>
                         <p className="mb-4 cq-description">{ad.description}</p>
-                        <p><a href="#" className="btn-custom">Read More <span className="ion-ios-arrow-forward"></span></a></p>
+                        <p><a href="#" className="btn-custom">进店看 <span className="ion-ios-arrow-forward"></span></a></p>
 		            </div>
 				</div>
 			</div>

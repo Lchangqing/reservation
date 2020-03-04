@@ -32,8 +32,6 @@ class AdPage extends React.Component{
     }
     render(){
         const { ads } = this.state;
-        console.log('==========================================');
-        console.log('ads',ads,this.test())
         return(
             <div id="colorlib-main">
 			<section class="ftco-no-pt ftco-no-pb bg-light">

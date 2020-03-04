@@ -8562,7 +8562,7 @@ h1, h2, h3, h4, h5,
   @media (min-width: 768px) {
     .blog-wrap .text .heading {
       margin-left: -150px;
-      background: white;
+      background: #f1f1f1;
       padding-top: 40px;
       padding-left: 50px;
       padding-bottom: 20px; } }

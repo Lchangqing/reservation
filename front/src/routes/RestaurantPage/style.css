@@ -8353,10 +8353,12 @@ textarea.form-control {
   background: #fff; }
   @media (min-width: 768px) {
     .blog-entry {
-      margin-bottom: 30px; } }
+      /* margin-bottom: 30px; */
+     } }
   @media (max-width: 767.98px) {
     .blog-entry {
-      margin-bottom: 30px; } }
+      /* margin-bottom: 30px; */
+     } }
   .blog-entry .text {
     position: relative;
     border-top: 0;
