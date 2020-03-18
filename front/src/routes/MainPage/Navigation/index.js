@@ -4,15 +4,16 @@
 /* eslint-disable jsx-a11y/anchor-has-content */ 
 import React from 'react';
 import {connect} from 'dva';
+import { Link } from "dva/router";
 class Navigation extends React.Component{
    render(){
        return(
 		<aside id="colorlib-aside" role="complementary" className="js-fullheight img" style={{'backgroundImage':'url(images2/insta-1.jpg)'}}>
-			<h1 id="colorlib-logo" className="mb-4"><a href="index.html">订餐吧</a></h1>
-			<nav id="colorlib-main-menu" role="navigation">
+			<h1 id="colorlib-logo" className="mb-4" style={{color:'white'}}>订餐吧</h1>
+			<nav id="colorlib-main-menu" role="navigation" style={{marginTop:80}}>
 				<ul>
-					<li><a href="/">好店推荐</a></li>
-					<li><a href="/SearchPage">店铺搜索</a></li>
+					<li><Link to="/" style={{fontSize:20}}>好店推荐</Link></li>
+					<li><Link to="/SearchPage" style={{fontSize:20}}>店铺搜索</Link></li>
 				</ul>
 			</nav>
 

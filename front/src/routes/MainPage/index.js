@@ -6,12 +6,18 @@ import React from 'react';
 import {connect} from 'dva';
 import Navigation from './Navigation';
 import './style.css'
+function mapStateToProps(state) {
+    return {
+        searchRePage: state.searchRePage
+    };
+}
 class MainPage extends React.Component{
     sideBar(){
         const path = window.location.pathname;
     return path.includes('DetailPage') || path.includes('RestaurantPage')
     }
     render(){
+        console.log('this.props.searchRePage.searchWords ',this.props.searchRePage.searchWords );
         return(
                 <div id="colorlib-page">
                     {!this.sideBar()?<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>:null}
@@ -21,4 +27,4 @@ class MainPage extends React.Component{
             )
     }
 }
-export default connect()(MainPage);
+export default connect(mapStateToProps)(MainPage);

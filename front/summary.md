@@ -10,3 +10,17 @@
     -没有注意配置的条件是访问域名带有api的url时才会进行代理
 6. 将方法放到了constructor，子组件仍然拿不到后台的数据:
     -最初以为this.setstate没有让render更新，然而实际的问题是因为两处需要用到子组件，我只对其中一处做了处理，导致另一处拿不到数据
+7. sequelize的外键关联不成功:
+    -最初的问题在于controller里面的include写错了
+    -之后错在在model里面的associate里面命令了as:'',但是在controller里面没有用as，即没有统一起来
+8. model中储存的内容不生效：
+    -没有在index里面引入model
+9. 用ref取不受控组件的值失败：
+    -button按钮里面有submit，要去掉
+10. 用到redux层，dispatch以后页面刷新，没有拿到数据
+    -第一个原因是没有在dispatch前面加await，加了以后出现了短暂的正确页面，然后页面立即重新刷新而不是简单的render，所以导致store数据丢失
+    -页面之所以会重新刷新，原因在用了button组件，修改方式是把form标签换掉，或者把button改为input然后type=button
+11. 从搜索页面跳转到推荐页面，store里面的数据消失了
+    -跳转用了a标签，会导致整个页面重新渲染，改为link标签
+12. 通过给state附加值，实现路由跳转，搜索部分没问题，广告部分有问题
+    -是跳转连接没有传参

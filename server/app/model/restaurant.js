@@ -21,9 +21,13 @@ module.exports = app => {
     // // 将updatedAt对应到数据库的updated_at字段
     // updatedAt: 'updated_at',
     // And deletedAt to be called destroyTime (remember to enable paranoid for this to work)
-    deletedAt: false, // 'deleted_at',
+    // deletedAt: false, // 'deleted_at',
     // 删除数据时不删除数据，而是更新deleteAt字段 如果需要设置为true，则上面的deleteAt字段不能为false，也就是说必须启用
-    paranoid: false,
+    // paranoid: false,
+    // constraints: false,
   });
+  // Restaurant.associate = function() {
+  //   app.model.Restaurant.hasOne(app.model.Ads, { foreignKey: 'rid' });
+  // };
   return Restaurant;
 };

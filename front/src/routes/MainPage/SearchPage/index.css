@@ -7,11 +7,13 @@ Author: Surjith S M
    GLOBAL STYLES
    ============================================================== */
 .cq-line{
-  height: 1px;
-  background-color: #343a40; 
-  margin:20px 0;
+  height: 2px;
+  background-color: #343a4091;
+  margin: 20px 0;
 }
 .cq-command{
+  padding-right: 0 !important;
+  padding-left: 0 !important;
   font-size: 26px;
   color: #343a40;
   font-weight: 500;
@@ -794,7 +796,7 @@ footer {
   .customer-content-wrap a {
     border: 1px solid #ccc;
     color: #737882;
-    font-size: 14px;
+    /* font-size: 14px; */
     border-radius: 3px;
     padding: 5px 10px;
     margin: 0 0 0 10px; }

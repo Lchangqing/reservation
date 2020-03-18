@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import { Link } from "dva/router";
 import './index.css';
 class ItemPage extends React.Component {
     render() {
@@ -13,7 +14,7 @@ class ItemPage extends React.Component {
                     <div className="col-md-6">
                         <div className="text p-md-5 p-4 ">
                             <div className="heading">
-                                <h2 className="mb-5"><a href="single.html">{ad.name}</a></h2>
+                                <h2 className="mb-5"><Link to={{pathname:"/RestaurantPage",state:{ad:ad}}}>{ad.name}</Link></h2>
                             </div>
                             <p>{ad.description}</p>
                         </div>

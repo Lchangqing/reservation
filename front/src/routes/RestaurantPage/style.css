@@ -298,7 +298,8 @@ template {
   display: none; }
 
 [hidden] {
-  display: none !important; }
+  display: none !important; 
+}
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -4700,7 +4701,7 @@ button.close {
   color: #212529; }
 
 .carousel {
-  position: relative; }
+  position: relative !important; }
 
 .carousel-inner {
   position: relative;
@@ -7404,7 +7405,8 @@ h1, h2, h3, h4, h5,
   padding: 5px 10px; }
 
 .owl-carousel {
-  position: relative; }
+  position: relative ;
+display:block;}
   .owl-carousel .owl-item {
     opacity: .4; }
     .owl-carousel .owl-item.active {
@@ -7457,8 +7459,8 @@ h1, h2, h3, h4, h5,
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
-      height: calc(100vh - 117px);
-      min-height: 700px;
+      height: calc(60vh);
+      /* min-height: 700px; */
       position: relative; }
       .owl-carousel.home-slider .slider-item .overlay {
         position: absolute;
@@ -8258,7 +8260,8 @@ textarea.form-control {
       box-shadow: inset -105px 0px 70px -60px white; }
     @media (max-width: 767.98px) {
       .testimony-section .owl-carousel .owl-stage-outer:before, .testimony-section .owl-carousel .owl-stage-outer:after {
-        display: none; } }
+        display: none;  
+      } }
 
 .testimony-wrap {
   background: #fff;
