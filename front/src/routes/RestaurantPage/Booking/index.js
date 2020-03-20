@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 import { connect } from 'dva';
 import React from 'react'
 import {searchRePageGetLayout} from '../../../models/actionType'
@@ -18,13 +19,16 @@ class Booking extends React.Component {
             smoking:[],
             time:[],
             noTime:[],
-            random:[]
+            random:[],
+            number:null,
+            rest:0
         }
         this.tablesOnchang = this.tablesOnchang.bind(this);
         this.seatsOnchange = this.seatsOnchange.bind(this);
         this.areaOnchange = this.areaOnchange.bind(this);
         this.timeOnchang = this.timeOnchang.bind(this);
-
+        this.clickSeats = this.clickSeats.bind(this);
+        this.handleReserve = this.handleReserve.bind(this);
     }
     async getLayout(){
         await this.props.dispatch({
@@ -52,61 +56,115 @@ class Booking extends React.Component {
             }
         })
         return seats.map((i,index)=>(
-            <span class="item-gallery-footer wrap-pic-w" href="images/photo-gallery-01.jpg" data-lightbox="gallery-footer">
+            <span class="item-gallery-footer wrap-pic-w" href="images/photo-gallery-01.jpg" data-lightbox="gallery-footer" rest={i} number={index+1} onClick={this.clickSeats}>
                 {index+1}号桌
                 {!i?<span className='cq-masking' />:null}
             </span> 
         ))
     }
+    clickSeats(e){
+        const rest = parseInt(e.target.getAttribute('rest'));
+        const number =parseInt( e.target.getAttribute('number'));
+        console.log('rest',rest);
+        if(rest){
+            this.setState({number,rest})
+        }
+        this.setState({rest})
+    }
     tablesOnchang(e){
-        const {layout,random} = this.state;
+        const {layout,number,random} = this.state;
         const tables = e.target.value;
         if(tables === ''){
             this.setState({tables:random})
         }else if(tables === 's'){
+            if(number && layout.stables.indexOf(number)===-1){
+                this.setState({tables:layout.stables,rest:0})
+            }
             this.setState({tables:layout.stables})
         }else if(tables === 'm'){
+            if(number && layout.mtables.indexOf(number)===-1){
+                this.setState({tables:layout.mtables,rest:0})
+            }
             this.setState({tables:layout.mtables})
         }else if(tables === 'l'){
+            if(number && layout.ltables.indexOf(number)===-1){
+                this.setState({tables:layout.ltables,rest:0})
+            }
             this.setState({tables:layout.ltables})
         }
     }
     seatsOnchange(e){
-        const {layout,random} = this.state;
+        const {layout,number,random} = this.state;
         const seats_ = e.target.value;
         if(seats_ === ''){
             this.setState({windows:random})
         }else if(seats_ === 'nw'){
+            if(number && layout.no_window.indexOf(number)===-1){
+                this.setState({windows:layout.no_window,rest:0})
+            }
             this.setState({windows:layout.no_window})
         }else if (seats_ === 'w'){
+            if(number && layout.window.indexOf(number)===-1){
+                this.setState({windows:layout.window,rest:0})
+            }
             this.setState({windows:layout.window})
         }
     }
     areaOnchange(e){
-        const {layout,random} = this.state;
+        const {layout,number,random} = this.state;
         const area = e.target.value;
         if(area === ''){
             this.setState({smoking:random})
         }else if(area === 'ns'){
+            if(number && layout.no_smoking.indexOf(number)===-1){
+                this.setState({smoking:layout.no_smoking,rest:0})
+            }
             this.setState({smoking:layout.no_smoking})
         }else if (area === 's'){
+            if(number && layout.smoking.indexOf(number)===-1){
+                this.setState({smoking:layout.smoking,rest:0})
+            }
             this.setState({smoking:layout.smoking})
         }
     }
     timeOnchang(e){
-        const {layout,noTime} = this.state;
+        const {layout,number,noTime} = this.state;
         const time = e.target.value;
         if(time === ''){
             this.setState({time:noTime})
         }else if(time === 'no'){
+            if(number && layout.noon.indexOf(number)>-1){
+                this.setState({time:layout.noon,rest:0})
+            }
             this.setState({time:layout.noon})
         }else if (time === 'ni'){
+            if(number && layout.night.indexOf(number)>-1){
+                this.setState({time:layout.night,rest:0})
+            }
             this.setState({time:layout.night})
         }
     }
+    handleReserve(){
+        const {rest} = this.state;
+        const inputName = this.inputName.value;
+        const inputNumber = this.inputNumber.value;
+        console.log('inputName',inputName,inputNumber)
+        if(!rest){
+            alert('请选择您需要预定的餐桌');
+            return;
+        }
+        if(!inputName || !inputNumber){
+            alert('请将信息填写完整');
+            return;
+        }
+        if(!(/^1[3456789]\d{9}$/.test(inputNumber))){
+            alert('手机号输入有误，请重新输入');
+            return;
+        }
+        alert('预定成功，期待您的光临');
+    }
     render() {
-        const {layout} = this.state;
-        console.log('getLayout',this.state.layout)
+        const {layout,number,rest,seats} = this.state;
         return (
             <section class="section-booking bg1-pattern">
                 <div class="container">
@@ -118,7 +176,7 @@ class Booking extends React.Component {
 						        </h3>
                             </div>
 
-                            <form class="wrap-form-booking">
+                            <div class="wrap-form-booking">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <span class="txt9">
@@ -176,30 +234,30 @@ class Booking extends React.Component {
 								        </span>
 
                                         <div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                                            <input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="name" placeholder="姓名" />
+                                            <input ref={input => this.inputName = input} class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="name" placeholder="姓名" />
                                         </div>
 
                                         <span class="txt9">
-                                            电话号码
+                                            手机号
 								        </span>
 
                                         <div class="wrap-inputphone size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                                            <input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="phone" placeholder="电话号码" />
+                                            <input ref={input => this.inputNumber = input} class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="phone" placeholder="手机号" />
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="wrap-btn-booking flex-c-m m-t-6">
-                                    <button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
+                                    <button onClick={this.handleReserve} class="btn3 flex-c-m size13 txt11 trans-0-4">
                                         预定
 							        </button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
 
                         <div class="col-lg-5 offset-1 p-t-115">
                             <h4 class="txt9 m-b-38">
-                                餐厅桌位 
+                                餐厅桌位{rest&&seats[number-1]?`:  您已选中${number}号餐桌`:null} 
 					        </h4>
 
                             <div class="wrap-gallery-footer flex-w" style={{height: 222, overflow: 'overlay',position:'relative'}}>

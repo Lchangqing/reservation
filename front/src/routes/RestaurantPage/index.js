@@ -13,9 +13,12 @@ class RestaurantPage extends React.Component{
             ad:this.props.location.state.ad
         } 
     }
+    componentDidMount() {
+        this.node.scrollIntoView();
+    }
     render() {
         return(
-            <div className="cq-detail">
+            <div className="cq-detail" ref={node => this.node = node}>
                 <Header name={this.state.ad.name}  img={this.state.ad.img}/>
                 <Introduction img={this.state.ad.img} description={this.state.ad.description}/>
                 <Booking id={this.state.ad.id}/>

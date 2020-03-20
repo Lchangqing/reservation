@@ -8,7 +8,7 @@ class Menu extends React.Component{
                     <div className="row justify-content-center mb-5 pb-5">
                     <div className="col-md-7 text-center heading-section ">
                         <span className="subheading">Our Menu</span>
-                        <h2>Discover Our Exclusive Menu</h2>
+                        <h2>美味佳肴等待您的挖掘</h2>
                     </div>
                     </div>
                     <div className="row">
