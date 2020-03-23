@@ -1,5 +1,5 @@
 /* eslint-disable radix */
-import {getReByName,getSuitsById} from '../services/restaurant';
+import {getReByName,getSuitsById,getMenusById} from '../services/restaurant';
 export default {
 
     namespace: 'searchRePage',
@@ -7,7 +7,8 @@ export default {
     state: {
       searchRes:[],
       searchWords:'',
-      layout:null
+      layout:null,
+      menus:[]
     },
   
     effects: {
@@ -38,7 +39,16 @@ export default {
           layout.no_window = layout.no_window.split(',').map(i=>parseInt(i));
           layout.noon = layout.noon?layout.noon.split(',').map(i=>parseInt(i)):[];
           layout.night = layout.night?layout.night.split(',').map(i=>parseInt(i)):[];
-          yield put({type:'save',payload:{layout:layout}});
+          yield put({type:'save',payload:{layout}});
+        } catch (error) {
+          console.log('getSuits報錯',error);
+        }
+      },
+      *getMenus(action,{call,put}){
+        try {
+          const {id} = action.payload;
+          let menus = yield call(getMenusById,{id});
+          yield put({type:'save',payload:{menus}});
         } catch (error) {
           console.log('getSuits報錯',error);
         }

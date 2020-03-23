@@ -24,4 +24,12 @@
     -跳转用了a标签，会导致整个页面重新渲染，改为link标签
 12. 通过给state附加值，实现路由跳转，搜索部分没问题，广告部分有问题
     -是跳转连接没有传参
-13 通过getAttribute得到的自定义属性是字符串
+13. 通过getAttribute得到的自定义属性是字符串
+14. setState以后的数据没有成功放到state中，render时拿不到
+    -constructor里面不能使用setstate
+15. 用popover报错
+    -antd版本降到三点零就可以了，不知道为什么
+16. 对话框监听取消事件调用父组件的函数，函数中调用了setaste报错
+    -热更新的问题，没有更新到我的操作
+17. dispatch不生效
+    -payload写错了

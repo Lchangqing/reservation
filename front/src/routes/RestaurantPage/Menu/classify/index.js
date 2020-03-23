@@ -2,19 +2,46 @@ import React from 'react';
 import {connect} from 'dva';
 import Item from './Item'
 class Classify extends React.Component{
-    render(){
+    constructor(props){
+        super(props);
+        const {classify} = this.props;
+        let {menus} = this.props;
+        menus = menus.filter(i=>i.classify===classify);
+        const lMenus = menus.slice(0,Math.ceil(menus.length/2));
+        const rMenus = menus.slice(Math.ceil(menus.length/2));
+        // this.setState({lMenus,rMenus});
+        this.state={
+            rMenus,
+            lMenus
+        }
+        // this.getMenus(); 
+    }
+    // getMenus(){
+    //     const {Classify} = this.props;
+    //     let {menus} = this.props;
+    //     menus = menus.filter(i=>i.Classify===Classify);
+    //     const lMenus = menus.slice(0,Math.ceil(menus.length/2));
+    //     const rMenus = menus.slice(Math.ceil(menus.length/2));
+    //     this.setState({lMenus,rMenus});
+    // }
+    setMenu(menu){
+        if(!menu.length){
+            return null; 
+        }
         return(
-            <div className="menus d-flex ">
-                <div className="menu-img" style={{backgroundImage: 'url(images/dish-4.jpg)'}}></div>
-                <div className="text d-flex">
-                    <div className="one-half">
-                        <h3>Fruit Vanilla Ice Cream</h3>
-                        <p><span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span></p>
-                    </div>
-                    <div className="one-forth">
-                        <span className="price">$29</span>
-                    </div>
-                </div>
+            <div className="col-lg-6">
+                {menu.map(item=>
+                    <Item food={item}/>
+                )}
+            </div>
+        )
+    }
+    render(){
+        const {lMenus,rMenus} = this.state;
+        return(
+            <div className="row">
+               {this.setMenu(lMenus)} 
+               {this.setMenu(rMenus)}   
             </div>
         )
     }

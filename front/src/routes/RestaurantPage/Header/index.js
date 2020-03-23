@@ -1,40 +1,69 @@
 import React from 'react';
 import {connect} from 'dva';
+import { Link } from "dva/router";
+import { Avatar, Divider, Popover } from 'antd';
+import cookie from 'react-cookies';
+import Login from '../Login'
+// const style = {
+//     float: 'right',
+//     cursor: 'pointer',
+//     color: '#fff',
+//     position: 'absolute',
+//     right: 100
+// }
 class Header extends React.Component{
+    constructor(props){
+        super(props);
+        const user = cookie.load('user');
+        this.state={
+            show:false,
+            user
+        }
+        this.showModal=this.showModal.bind(this);
+        this.handleCancel=this.handleCancel.bind(this); 
+        this.updateUserInfo = this.updateUserInfo.bind(this); 
+    }
     componentDidMount(){
         console.log('this.props',this.props);
     }
+    showModal(){
+        this.setState({show:true});
+    }
+    handleCancel(){
+        this.setState({show:false});
+    }
+    updateUserInfo(user){
+        this.setState({user})
+    }
     render(){
+        const content = (
+            <div><a onClick={this.showModal}>登录</a></div> 
+        );
+        const {show,user} = this.state; 
         return(
            <div>
+           <Login show={show} handleCancel={this.handleCancel} updateUserInfo={this.updateUserInfo}/>
                 <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                     <div className="container">
-                        <a className="navbar-brand" href="index.html">Tasty</a>
-                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="oi oi-menu"></span> Menu
-                        </button>
-                
-                        <div className="collapse navbar-collapse" id="ftco-nav">
-                        <ul className="navbar-nav ml-auto">
-                            <li className="nav-item active"><a href="index.html" className="nav-link">Home</a></li>
-                            <li className="nav-item"><a href="menu.html" className="nav-link">Menu</a></li>
-                            <li className="nav-item"><a href="specialties.html" className="nav-link">Specialties</a></li>
-                            <li className="nav-item"><a href="reservation.html" className="nav-link">Reservation</a></li>
-                            <li className="nav-item"><a href="blog.html" className="nav-link">Blog</a></li>
-                            <li className="nav-item"><a href="about.html" className="nav-link">About</a></li>
-                            <li className="nav-item"><a href="contact.html" className="nav-link">Contact</a></li>
-                        </ul>
+                        <Link className="navbar-brand" to='/'>返回</Link>
+                 
+                        <div className="navbar-nav " style={{color:'white'}}>
+                        <Popover content={content}>
+                            <Avatar size="large" icon="user" src={user?"images/drink-12.jpg":"images/login.jpg"} />
+                            <Divider type="vertical" />
+                            {user?user.name:null} 
+                        </Popover>
                         </div>
                     </div>
                 </nav>
                 <section className="home-slider owl-carousel owl-drag">
                 
-                    <div className="slider-item" style={{backgroundImage: `url(images2/bg_1.jpg)`}}>
+                    <div className="slider-item" style={{backgroundImage: `url(images2/bg_1.jpg)`}}> 
                         <div className="overlay"></div>
                         <div className="container">
                         <div className="row slider-text align-items-center justify-content-center text-center">
                             <div className="col-md-10 col-sm-12 ">
-                            <h1 className="m-b-200">{this.props.name}</h1>
+                            <h1 className="m-b-200" >{this.props.name}</h1>
                             </div>
                         </div>
                         </div>

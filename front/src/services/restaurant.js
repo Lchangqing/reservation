@@ -17,3 +17,9 @@ export const getSuitsById = async (params) => await http({
   url:'/api/getSuitsById',
   data:params
 }) 
+
+export const getMenusById = async (params) => await http({
+  method:'get',
+  url:'/api/getMenusById',
+  data:params
+})

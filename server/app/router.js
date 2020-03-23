@@ -10,4 +10,6 @@ module.exports = app => {
   router.get('/api/getAds', controller.ads.getAds);
   router.get('/api/findRestaurant', controller.restaurant.findReByName);
   router.get('/api/getSuitsById', controller.layout.getSuitsById);
+  router.get('/api/getMenusById', controller.dishes.getMenusById);
+  router.get('/api/getUsers', controller.userinfo.getUsers);
 };

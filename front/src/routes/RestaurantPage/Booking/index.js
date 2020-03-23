@@ -38,6 +38,9 @@ class Booking extends React.Component {
         let seats = [];
         let random = [];
         const {layout} = this.props.searchRePage
+        if(!layout){
+            return;
+        }
         const noTime = layout.noon.filter(i=>layout.night.indexOf(i)>-1);
         for(let i = 1 ; i <= layout.tables ; i++){
             seats.push(noTime.indexOf(i)>-1?0:1)

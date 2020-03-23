@@ -22,7 +22,7 @@ class RestaurantPage extends React.Component{
                 <Header name={this.state.ad.name}  img={this.state.ad.img}/>
                 <Introduction img={this.state.ad.img} description={this.state.ad.description}/>
                 <Booking id={this.state.ad.id}/>
-                <Menu/>
+                <Menu id={this.state.ad.id}/>
                 <Footer/>
             </div>
         )
