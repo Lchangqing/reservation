@@ -33,6 +33,12 @@ module.exports = appInfo => {
     // myAppName: 'egg',
   };
 
+  config.security = {
+    csrf: {
+      headerName: 'x-csrf-token', // 自定义请求头
+    },
+  };
+
   return {
     ...config,
     ...userConfig,

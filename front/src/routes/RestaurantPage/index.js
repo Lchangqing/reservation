@@ -21,7 +21,7 @@ class RestaurantPage extends React.Component{
             <div className="cq-detail" ref={node => this.node = node}>
                 <Header name={this.state.ad.name}  img={this.state.ad.img}/>
                 <Introduction img={this.state.ad.img} description={this.state.ad.description}/>
-                <Booking id={this.state.ad.id}/>
+                <Booking id={this.state.ad.id} restaurant_name={this.state.ad.name}/>
                 <Menu id={this.state.ad.id}/>
                 <Footer/>
             </div>

@@ -3,6 +3,7 @@ import { connect } from 'dva'
 import { Modal, Form, Input, Button, Icon, Row, Col, message } from 'antd';
 import cookie from 'react-cookies';
 import { userGetUsersInfo } from '../../../models/actionType';
+import { userRegister } from '../../../services/user';
 function mapStateToProps(state) {
     return { user: state.user };
 }
@@ -15,8 +16,7 @@ class NewModuleModal extends React.Component {
         super(props)
 
         this.state = {
-            show: this.props.show,
-            button: 'l'
+            show: this.props.show
         }
     }
     componentDidMount() {
@@ -26,10 +26,10 @@ class NewModuleModal extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { button } = this.state;
+        const { buttonv } = this.props;
         this.props.form.validateFields(async (err, values) => {
             if (!err) {
-                if (button === 'l') {
+                if (buttonv === 'l') {
                     await this.props.dispatch({
                         type: userGetUsersInfo,
                         payload: { name: values.name, password: values.password }
@@ -42,10 +42,19 @@ class NewModuleModal extends React.Component {
                     } else {
                         message.config({
                             top: 60
-                          });
-                        message.error('用户名或密码有误',2)
+                        });
+                        message.error('用户名或密码有误', 2)
                     }
+                } else {
+                    const result = await userRegister( { name: values.name, password: values.password });
+                    if(result.exist===1){
+                        message.warning('该用户名已存在，请注册新用户名', 2);
+                    }else if(result.exist===0){
+                        message.success(`用户${result.name}创建成功`, 2); 
+                    }
+                    console.log('userRegister',result)
                 }
+                this.props.form.resetFields();
                 console.log('Received values of form: ', values);
 
             }
@@ -53,6 +62,7 @@ class NewModuleModal extends React.Component {
     };
     render() {
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
+        const { buttonv } = this.props;
 
         // Only show error after a field is touched.
         const usernameError = isFieldTouched('username') && getFieldError('username');
@@ -89,11 +99,8 @@ class NewModuleModal extends React.Component {
                     <Form.Item style={{ marginBottom: -10 }}>
                         <Row>
                             <Col span={24} style={{ textAlign: 'right' }}>
-                                <Button onClick={() => this.setState({ button: 'l' })} type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())}>
-                                    登录
-                                </Button>
-                                <Button onClick={() => this.setState({ button: 'r' })} type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} style={{ marginLeft: 10 }}>
-                                    注册
+                                <Button type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())}>
+                                    {buttonv === 'l' ? '登录' : '注册'}
                                 </Button>
                             </Col>
                         </Row>
