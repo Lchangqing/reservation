@@ -10,6 +10,8 @@ module.exports = app => {
   router.get('/api/findRestaurant', controller.restaurant.findReByName);
   router.get('/api/getAds', controller.ads.getAds);
   router.get('/api/getMenusById', controller.dishes.getMenusById);
+  router.get('/api/getCommandBydid', controller.dishes.getCommandBydid);
+  router.post('/api/commitCommand', controller.dishes.commitCommand);
   router.get('/api/getUsers', controller.userinfo.getUsers);
   router.post('/api/userRegister', controller.userinfo.userRegister);
   router.get('/api/getSuitsById', controller.layout.getSuitsById);

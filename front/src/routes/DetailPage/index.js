@@ -2,261 +2,120 @@
 /* eslint-disable jsx-a11y/href-no-hash */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react';
-import {connect} from 'dva';
+import { connect } from 'dva';
+import { getCommandBydid } from '../../services/restaurant';
+import Command from './Command';
+import cookie from 'react-cookies';
+import {commitCommand} from '../../services/restaurant'
 import './style.css';
-class DetailPage extends React.Component{
-    render(){
-        return(
-            <div className="site-wrap">
 
-                <div className="site-mobile-menu">
-                <div className="site-mobile-menu-header">
-                    <div className="site-mobile-menu-close mt-3">
-                    <span className="icon-close2 js-menu-toggle"></span>
-                    </div>
-                </div>
-                <div className="site-mobile-menu-body"></div>
-                </div>
-                
-                <header className="site-navbar" role="banner">
-                    <div className="container-fluid">
-                        <div className="row align-items-center">
-                            <div className="site-logo">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    <a href="/" className="text-black h2 mb-0"><i className="icon-arrow-left"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-                
-                <section className="site-section py-lg">
-                <div className="container-fluid">
-                        <div className="row align-items-center">
-                            <div className="site-logo">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    <a href="/" className="text-black h2 mb-0"><i className="icon-arrow-left"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                <div className="container">
-                    
-                    <div className="row blog-entries element-animate">
-            
-                    <div className="col-md-12 col-lg-8 main-content">
-                        
-                        <div className="post-content-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium nam quas inventore, ut iure iste modi eos adipisci ad ea itaque labore earum autem nobis et numquam, minima eius. Nam eius, non unde ut aut sunt eveniet rerum repellendus porro.</p>
-                        <p>Sint ab voluptates itaque, ipsum porro qui obcaecati cumque quas sit vel. Voluptatum provident id quis quo. Eveniet maiores perferendis officia veniam est laborum, expedita fuga doloribus natus repellendus dolorem ab similique sint eius cupiditate necessitatibus, magni nesciunt ex eos.</p>
-                        <p>Quis eius aspernatur, eaque culpa cumque reiciendis, nobis at earum assumenda similique ut? Aperiam vel aut, ex exercitationem eos consequuntur eaque culpa totam, deserunt, aspernatur quae eveniet hic provident ullam tempora error repudiandae sapiente illum rerum itaque voluptatem. Commodi, sequi.</p>
-                        <div className="row mb-5 mt-5">
-                        <div className="col-md-12 mb-4">
-                            <img src="images/img_1.jpg" alt="Image placeholder" className="img-fluid rounded"/>
-                        </div>
-                        <div className="col-md-6 mb-4">
-                            <img src="images/img_2.jpg" alt="Image placeholder" className="img-fluid rounded"/>
-                        </div>
-                        <div className="col-md-6 mb-4">
-                            <img src="images/img_3.jpg" alt="Image placeholder" className="img-fluid rounded"/>
-                        </div>
-                        </div>
-                        <p>Quibusdam autem, quas molestias recusandae aperiam molestiae modi qui ipsam vel. Placeat tenetur veritatis tempore quos impedit dicta, error autem, quae sint inventore ipsa quidem. Quo voluptate quisquam reiciendis, minus, animi minima eum officia doloremque repellat eos, odio doloribus cum.</p>
-                        <p>Temporibus quo dolore veritatis doloribus delectus dolores perspiciatis recusandae ducimus, nisi quod, incidunt ut quaerat, magnam cupiditate. Aut, laboriosam magnam, nobis dolore fugiat impedit necessitatibus nisi cupiditate, quas repellat itaque molestias sit libero voluptas eveniet omnis illo ullam dolorem minima.</p>
-                        <p>Porro amet accusantium libero fugit totam, deserunt ipsa, dolorem, vero expedita illo similique saepe nisi deleniti. Cumque, laboriosam, porro! Facilis voluptatem sequi nulla quidem, provident eius quos pariatur maxime sapiente illo nostrum quibusdam aliquid fugiat! Earum quod fuga id officia.</p>
-                        <p>Illo magnam at dolore ad enim fugiat ut maxime facilis autem, nulla cumque quis commodi eos nisi unde soluta, ipsa eius aspernatur sint atque! Nihil, eveniet illo ea, mollitia fuga accusamus dolor dolorem perspiciatis rerum hic, consectetur error rem aspernatur!</p>
-            
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus magni explicabo id molestiae, minima quas assumenda consectetur, nobis neque rem, incidunt quam tempore perferendis provident obcaecati sapiente, animi vel expedita omnis quae ipsa! Obcaecati eligendi sed odio labore vero reiciendis facere accusamus molestias eaque impedit, consequuntur quae fuga vitae fugit?</p>
-                        </div>
-            
-                        
-                        <div className="pt-5">
-                        <p>Categories:  <a href="#">Food</a>, <a href="#">Travel</a>  Tags: <a href="#">#manila</a>, <a href="#">#asia</a></p>
-                        </div>
-            
-            
-                        <div className="pt-5">
-                        <h3 className="mb-5">6 Comments</h3>
-                        <ul className="comment-list">
-                            <li className="comment">
-                            <div className="vcard">
-                                <img src="images/person_1.jpg" alt="Image placeholder"/>
-                            </div>
-                            <div className="comment-body">
-                                <h3>Jean Doe</h3>
-                                <div className="meta">January 9, 2018 at 2:21pm</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                <p><a href="#" className="reply rounded">Reply</a></p>
-                            </div>
-                            </li>
-            
-                            <li className="comment">
-                            <div className="vcard">
-                                <img src="images/person_1.jpg" alt="Image placeholder"/>
-                            </div>
-                            <div className="comment-body">
-                                <h3>Jean Doe</h3>
-                                <div className="meta">January 9, 2018 at 2:21pm</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                <p><a href="#" className="reply rounded">Reply</a></p>
-                            </div>
-            
-                            <ul className="children">
-                                <li className="comment">
-                                <div className="vcard">
-                                    <img src="images/person_1.jpg" alt="Image placeholder"/>
-                                </div>
-                                <div className="comment-body">
-                                    <h3>Jean Doe</h3>
-                                    <div className="meta">January 9, 2018 at 2:21pm</div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                    <p><a href="#" className="reply rounded">Reply</a></p>
-                                </div>
-            
-            
-                                <ul className="children">
-                                    <li className="comment">
-                                    <div className="vcard">
-                                        <img src="images/person_1.jpg" alt="Image placeholder"/>
+class DetailPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            menu: this.props.location.state,
+            commands: []
+        }
+        this.commit = this.commit.bind(this);
+    }
+    async componentDidMount() {
+        const { id } = this.state.menu;
+        this.node.scrollIntoView();
+        const commands = await getCommandBydid({ id });
+        this.setState({ commands })
+    }
+    async commit() {
+        const user = cookie.load('user');
+        if (!user) {
+            alert('请先登录！');
+            return;
+        }
+        let  value  = this.inputVal.value.replace(/\ +|[ ]|[\r\n]/g, "");
+        // value = value.replace(/[ ]/g, "");    //去掉空格
+        // value = value.replace(/[\r\n]/g, "");
+        if (!value) {
+            alert('发布的评论不能为空！')
+            return;
+        }
+        let date = new Date();
+        date = date.toLocaleString();
+        const did = this.state.menu.id;
+        const {rid} = this.state.menu;
+        const { name, id: uid } = user;
+        let {commands} = this.state;
+        await commitCommand({date,did,rid,name,uid,command:value}).then(async rsp=>{
+            console.log('rsp=======================',rsp)
+            commands.push(rsp);
+            this.setState({ commands });
+        })
+    }
+    render() {
+        const { img, name, one_command, two_command } = this.state.menu;
+        const { commands } = this.state;
+        return (
+            <div className="site-wrap" ref={node => this.node = node}>
+                <section className="py-lg">
+                    <div className="container mt-5">
+
+                        <div className="row blog-entries element-animate">
+
+                            <div className="col-md-12 col-lg-12 main-content">
+
+                                <div className="post-content-body mt-3">
+                                    <h1>{name}</h1>
+                                    {one_command ? one_command : <p className="mt-5">扬州是淮扬菜的发源地和中心，“淮左名都，竹西佳处”，以扬州为起点的淮扬菜，与鲁菜，川菜和粤菜并称为中国四大菜系。扬州地处江苏中部，为历史文化名城，自唐宋以来，扬州一直商贾云集，是备受文人喜好、格调高雅的慢生活城市。朱自清先生客居扬州时写过《说扬州》，称“扬州是讲究吃的好地方”。富春茶社，冶春茶社以及“共和春”，都是闻名遐迩的老字号。“菜根香”、“九炉分座”等餐饮店或已易帜，但也依稀尚存旧时的口味。淮扬美食的精髓在于刀工而最能体现刀工的一道美食莫过于文思豆腐
+                                    扬州是淮扬菜的发源地和中心，“淮左名都，竹西佳处”，以扬州为起点的淮扬菜，与鲁菜，川菜和粤菜并称为中国四大菜系。扬州地处江苏中部，为历史文化名城，自唐宋以来，扬州一直商贾云集，是备受文人喜好、格调高雅的慢生活城市。朱自清先生客居扬州时写过《说扬州》，称“扬州是讲究吃的好地方”。富春茶社，冶春茶社以及“共和春”，都是闻名遐迩的老字号。“菜根香”、“九炉分座”等餐饮店或已易帜，但也依稀尚存旧时的口味。淮扬美食的精髓在于刀工而最能体现刀工的一道美食莫过于文思豆腐</p>}
+                                    <div className="row mb-5 mt-5">
+                                        <div className="col-10 offset-1 mb-4" style={{ maxHeight: 500, overflow: 'hidden' }}>
+                                            <img src={img} alt="Image placeholder" className="img-fluid rounded" />
+                                        </div>
                                     </div>
-                                    <div className="comment-body">
-                                        <h3>Jean Doe</h3>
-                                        <div className="meta">January 9, 2018 at 2:21pm</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                        <p><a href="#" className="reply rounded">Reply</a></p>
-                                    </div>
-            
-                                        <ul className="children">
-                                        <li className="comment">
-                                            <div className="vcard">
-                                            <img src="images/person_1.jpg" alt="Image placeholder"/>
+                                    {two_command ? two_command : <p>Quibusdam autem, quas molestias recusandae aperiam molestiae modi qui ipsam vel. Placeat tenetur veritatis tempore quos impedit dicta, error autem, quae sint inventore ipsa quidem. Quo voluptate quisquam reiciendis, minus, animi minima eum officia doloremque repellat eos, odio doloribus cum.
+                                        Temporibus quo dolore veritatis doloribus delectus dolores perspiciatis recusandae ducimus, nisi quod, incidunt ut quaerat, magnam cupiditate. Aut, laboriosam magnam, nobis dolore fugiat impedit necessitatibus nisi cupiditate, quas repellat itaque molestias sit libero voluptas eveniet omnis illo ullam dolorem minima.
+                                        Porro amet accusantium libero fugit totam, deserunt ipsa, dolorem, vero expedita illo similique saepe nisi deleniti. Cumque, laboriosam, porro! Facilis voluptatem sequi nulla quidem, provident eius quos pariatur maxime sapiente illo nostrum quibusdam aliquid fugiat! Earum quod fuga id officia.
+                                        Illo magnam at dolore ad enim fugiat ut maxime facilis autem, nulla cumque quis commodi eos nisi unde soluta, ipsa eius aspernatur sint atque! Nihil, eveniet illo ea, mollitia fuga accusamus dolor dolorem perspiciatis rerum hic, consectetur error rem aspernatur!
+
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus magni explicabo id molestiae, minima quas assumenda consectetur, nobis neque rem, incidunt quam tempore perferendis provident obcaecati sapiente, animi vel expedita omnis quae ipsa! Obcaecati eligendi sed odio labore vero reiciendis facere accusamus molestias eaque impedit, consequuntur quae fuga vitae fugit?</p>}
+                                </div>
+
+                                <div className="pt-5 col-10 offset-1">
+                                    <h3 className="mb-5">{commands.length}条评论</h3>
+                                    {commands.length ? <Command commands={commands} /> : null}
+
+                                    <div className="comment-form-wrap">
+                                        <h3 className="mb-5">留下您的足迹</h3>
+                                        <div action="#" className="p-5 bg-light">
+                                            <div className="form-group">
+                                                <label for="message">评论</label>
+                                                <textarea name="" id="message" cols="30" rows="10" className="form-control" ref={inputVal => this.inputVal = inputVal}></textarea>
                                             </div>
-                                            <div className="comment-body">
-                                            <h3>Jean Doe</h3>
-                                            <div className="meta">January 9, 2018 at 2:21pm</div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                            <p><a href="#" className="reply rounded">Reply</a></p>
+                                            <div className="form-group" style={{ textAlign: 'right' }}>
+                                                <input onClick={this.commit} type="button" value="发表" className="btn btn-primary" />
                                             </div>
-                                        </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                </li>
-                            </ul>
-                            </li>
-                        </ul>
-                        
-                        <div className="comment-form-wrap pt-5">
-                            <h3 className="mb-5">Leave a comment</h3>
-                            <form action="#" className="p-5 bg-light">
-                            <div className="form-group">
-                                <label for="name">Name *</label>
-                                <input type="text" className="form-control" id="name"/>
-                            </div>
-                            <div className="form-group">
-                                <label for="email">Email *</label>
-                                <input type="email" className="form-control" id="email"/>
-                            </div>
-                            <div className="form-group">
-                                <label for="website">Website</label>
-                                <input type="url" className="form-control" id="website"/>
-                            </div>
-            
-                            <div className="form-group">
-                                <label for="message">Message</label>
-                                <textarea name="" id="message" cols="30" rows="10" className="form-control"></textarea>
-                            </div>
-                            <div className="form-group">
-                                <input type="submit" value="Post Comment" className="btn btn-primary"/>
-                            </div>
-            
-                            </form>
-                        </div>
-                        </div>
-            
-                    </div>
-            
-            
-                    <div className="col-md-12 col-lg-4 sidebar">
-                        <div className="sidebar-box search-form-wrap">
-                        <form action="#" className="search-form">
-                            <div className="form-group">
-                            <span className="icon fa fa-search"></span>
-                            <input type="text" className="form-control" id="s" placeholder="Type a keyword and hit enter"/>
-                            </div>
-                        </form>
-                        </div>
-                        <div className="sidebar-box">
-                        <div className="bio text-center">
-                            <img src="images/person_2.jpg" alt="Image Placeholder" className="img-fluid mb-5"/>
-                            <div className="bio-body">
-                            <h2>Craig David</h2>
-                            <p className="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem facilis sunt repellendus excepturi beatae porro debitis voluptate nulla quo veniam fuga sit molestias minus.</p>
-                            <p><a href="#" className="btn btn-primary btn-sm rounded px-4 py-2">Read my bio</a></p>
-                            <p className="social">
-                                <a href="#" className="p-2"><span className="fa fa-facebook"></span></a>
-                                <a href="#" className="p-2"><span className="fa fa-twitter"></span></a>
-                                <a href="#" className="p-2"><span className="fa fa-instagram"></span></a>
-                                <a href="#" className="p-2"><span className="fa fa-youtube-play"></span></a>
-                            </p>
-                            </div>
-                        </div>
-                        </div>
-                        <div className="sidebar-box">
-                        <h3 className="heading">Popular Posts</h3>
-                        <div className="post-entry-sidebar">
-                            <ul>
-                            <li>
-                                <a href="">
-                                <img src="images/img_1.jpg" alt="Image placeholder" className="mr-4"/>
-                                <div className="text">
-                                    <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                                    <div className="post-meta">
-                                    <span className="mr-2">March 15, 2018 </span>
+
+                                        </div>
                                     </div>
                                 </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                <img src="images/img_2.jpg" alt="Image placeholder" className="mr-4"/>
-                                <div className="text">
-                                    <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                                    <div className="post-meta">
-                                    <span className="mr-2">March 15, 2018 </span>
-                                    </div>
-                                </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                <img src="images/img_3.jpg" alt="Image placeholder" className="mr-4"/>
-                                <div className="text">
-                                    <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                                    <div className="post-meta">
-                                    <span className="mr-2">March 15, 2018 </span>
-                                    </div>
-                                </div>
-                                </a>
-                            </li>
-                            </ul>
-                        </div>
+
+                            </div>
+
                         </div>
                     </div>
-            
-                    </div>
-                </div>
                 </section>
-                
-                
+
+
                 <div className="site-footer">
-                <div className="container">
-                    <div className="row">
-                    <div className="col-12 text-center">
-                        <p>
-                        Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i className="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-                        </p>
-                    </div>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-12 text-center">
+                                <p>
+                                    Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i className="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                </div>
-                
+
             </div>
         );
     }

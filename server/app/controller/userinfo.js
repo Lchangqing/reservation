@@ -23,7 +23,6 @@ class UserinfoController extends Controller {
       const result = await ctx.model.Userinfo.findAll({
         where: { name },
       });
-      console.log('userRegister',result);
       if (result.length) {
         ctx.body = { code: 0, data: { exist: 1 } };
       } else {

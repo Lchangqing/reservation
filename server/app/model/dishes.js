@@ -14,6 +14,8 @@ module.exports = app => {
     describe: STRING(255),
     img: STRING(255),
     name: STRING(255),
+    one_command: STRING,
+    two_command: STRING,
   }, {
     tableName: 'dishes',
     timestamps: false,

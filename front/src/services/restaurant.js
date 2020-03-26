@@ -1,5 +1,5 @@
 import http from '../utils/http';
-import {getCookie} from '../utils/tools';
+import { getCookie } from '../utils/tools';
 
 export const getAd = async (params) => await http({
   method: 'get',
@@ -26,10 +26,25 @@ export const getMenusById = async (params) => await http({
 })
 
 export const reserve = async (params) => await http({
-  method:'post',
-  url:'/api/reserve',
+  method: 'post',
+  url: '/api/reserve',
   headers: {
-    'x-csrf-token': getCookie("csrfToken"), 
+    'x-csrf-token': getCookie("csrfToken"),
   },
-  data:params,
+  data: params,
+})
+
+export const getCommandBydid = async (params) => await http({
+  method: 'get',
+  url: '/api/getCommandBydid',
+  data: params
+})
+
+export const commitCommand = async (params) => await http({
+  method: 'post',
+  url: '/api/commitCommand',
+  headers: {
+    'x-csrf-token': getCookie("csrfToken"),
+  },
+  data: params,
 })

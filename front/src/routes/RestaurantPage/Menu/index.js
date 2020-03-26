@@ -35,7 +35,7 @@ class Menu extends React.Component{
         }
         return classify.map((i,index)=>(
             <div className={`tab-pane fade ${index===0 ?`show active`:``}`} id={`v-pills-${index}`} role="tabpanel" aria-labelledby={`v-pills-${index}-tab`}>
-                <Classify menus={menus} classify={i}/>
+                <Classify menus={menus} classify={i} rid={this.props.id}/>
             </div>
         ))
     }

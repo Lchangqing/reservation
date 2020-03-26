@@ -31,7 +31,7 @@ class Classify extends React.Component{
         return(
             <div className="col-lg-6">
                 {menu.map(item=>
-                    <Item food={item}/>
+                    <Item food={item} rid={this.props.rid}/>
                 )}
             </div>
         )
