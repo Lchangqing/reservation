@@ -60,7 +60,7 @@ class SearchPage extends React.Component {
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="slider-content_wrap">
-                                                <h1>好店尽在订餐吧</h1>
+                                                <h1>好店尽在预约吧</h1>
                                                 <h5>紫驼之峰出翠釜，水精之盘行素鳞；犀箸餍饫久未下，鸾刀缕切空纷纶；黄门飞鞚不动尘，御厨络绎送八珍。.</h5>
                                             </div>
                                         </div>

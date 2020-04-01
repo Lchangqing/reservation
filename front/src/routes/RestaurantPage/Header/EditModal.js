@@ -31,7 +31,7 @@ class EditModal extends React.Component {
             <Modal
                 visible={this.props.show}
                 footer={null}
-                title="订餐吧"
+                title="预约吧"
                 onCancel={this.props.handleCancel}
             >
                 <Form layout='vertical' onSubmit={this.handleSubmit}>

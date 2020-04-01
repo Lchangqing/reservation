@@ -190,7 +190,7 @@ class EditModal extends React.Component {
         return (
             <Modal
                 visible={this.props.show}
-                title="订餐吧"
+                title="预约吧"
                 onCancel={this.props.handleCancel}
                 width={800}
                 footer={[
