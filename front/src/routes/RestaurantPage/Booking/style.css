@@ -1,0 +1,17 @@
+.gutter-box {
+  padding: 5px 0;
+}
+
+.click-masking {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2em;
+  left: 0;
+  top: 0;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  background-color: #ffb40096;
+  border-radius: 10%;
+}

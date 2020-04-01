@@ -1,35 +1,41 @@
 1. 外部引入的css文件不生效：
-    -dva自带的框架使用的是cssModule，所以需要禁用这种模式才能生效
+    - dva自带的框架使用的是cssModule，所以需要禁用这种模式才能生效
 2. render出的内容没有渲染(布局都在，css样式也生效)：
-    -部分样式通过运行外部js文件之后再加上的，所以某些样式前期没有，出现部分样式缺失导致显示不出来
+    - 部分样式通过运行外部js文件之后再加上的，所以某些样式前期没有，出现部分样式缺失导致显示不出来
 3. 无法完成二级路由跳转:
-    -是相对路径的问题，需要把index.html中引入的script中src='index'改为src='/index'
+    - 是相对路径的问题，需要把index.html中引入的script中src='index'改为src='/index'
 4. 数据库取数据，命令中拿的变量和我提供的变量不一样：
-    -原因在于我没有指定数据表的名字，即对于表的信息配置不完整
+    - 原因在于我没有指定数据表的名字，即对于表的信息配置不完整
 5. 前端请求代理失败。webpckrc配置不生效:
-    -没有注意配置的条件是访问域名带有api的url时才会进行代理
+    - 没有注意配置的条件是访问域名带有api的url时才会进行代理
 6. 将方法放到了constructor，子组件仍然拿不到后台的数据:
-    -最初以为this.setstate没有让render更新，然而实际的问题是因为两处需要用到子组件，我只对其中一处做了处理，导致另一处拿不到数据
+    - 最初以为this.setstate没有让render更新，然而实际的问题是因为两处需要用到子组件，我只对其中一处做了处理，导致另一处拿不到数据
 7. sequelize的外键关联不成功:
-    -最初的问题在于controller里面的include写错了
-    -之后错在在model里面的associate里面命令了as:'',但是在controller里面没有用as，即没有统一起来
+    - 最初的问题在于controller里面的include写错了
+    - 之后错在在model里面的associate里面命令了as:'',但是在controller里面没有用as，即没有统一起来
 8. model中储存的内容不生效：
-    -没有在index里面引入model
+    - 没有在index里面引入model
 9. 用ref取不受控组件的值失败：
-    -button按钮里面有submit，要去掉
+    - button按钮里面有submit，要去掉
 10. 用到redux层，dispatch以后页面刷新，没有拿到数据
-    -第一个原因是没有在dispatch前面加await，加了以后出现了短暂的正确页面，然后页面立即重新刷新而不是简单的render，所以导致store数据丢失
-    -页面之所以会重新刷新，原因在用了button组件，修改方式是把form标签换掉，或者把button改为input然后type=button
+    - 第一个原因是没有在dispatch前面加await，加了以后出现了短暂的正确页面，然后页面立即重新刷新而不是简单的render，所以导致store数据丢失
+    - 页面之所以会重新刷新，原因在用了button组件，修改方式是把form标签换掉，或者把button改为input然后type=button
 11. 从搜索页面跳转到推荐页面，store里面的数据消失了
-    -跳转用了a标签，会导致整个页面重新渲染，改为link标签
+    - 跳转用了a标签，会导致整个页面重新渲染，改为link标签
 12. 通过给state附加值，实现路由跳转，搜索部分没问题，广告部分有问题
-    -是跳转连接没有传参
+    - 是跳转连接没有传参
 13. 通过getAttribute得到的自定义属性是字符串
 14. setState以后的数据没有成功放到state中，render时拿不到
-    -constructor里面不能使用setstate
+    - constructor里面不能使用setstate
 15. 用popover报错
-    -antd版本降到三点零就可以了，不知道为什么
+    - antd版本降到三点零就可以了，不知道为什么
 16. 对话框监听取消事件调用父组件的函数，函数中调用了setaste报错
-    -热更新的问题，没有更新到我的操作
+    - 热更新的问题，没有更新到我的操作
 17. dispatch不生效
-    -payload写错了
+    - payload写错了
+18. 在某个店铺内部，想通过路由跳转到另一个店铺，但是页面还是上一个店铺的内容，没有真正的update  
+    - 原因在于react判断到跳转后的组件和之前是同一个组件，所以没有重新渲染组件，解决方式是给组件加一个key，这样react判断到key不同，就会重新渲染组件
+19. z-index是一个相对值，再大都不能超越父元素
+20. 正则表达式生成器https://regexper.com/
+21. 定义一个变量，他的值为另外两个变量值的差。但是这个变量拿到的却是undefined
+    - 可能是Chrome断点的一点小问题

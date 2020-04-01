@@ -29,11 +29,8 @@ class DishesController extends Controller {
 
   async commitCommand() {
     const { ctx } = this;
-    console.log('过来了')
     try {
-      console.log('----33')
       const { body } = ctx.request;
-      console.log('-----body')
       const result = await ctx.model.Commands.create(body);
       ctx.body = { code: 0, data: result };
     } catch (error) {

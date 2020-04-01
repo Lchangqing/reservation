@@ -4,29 +4,30 @@ import React from 'react';
 import { searchRePageGetLayout } from '../../../models/actionType';
 import { reserve } from '../../../services/restaurant';
 import cookie from 'react-cookies';
-import { message } from 'antd';
+import { message, Icon } from 'antd';
 import Order from './order';
 import './main.css';
 import './util.css';
+import EditModal from './EditModal';
 function mapStateToProps(state) {
     return { searchRePage: state.searchRePage, user: state.user };
 }
 class Booking extends React.Component {
     constructor(props) {
         super(props);
-        this.getLayout();
         this.state = {
             layout: null,
-            seats: [],
-            tables: [],
+            seats: [],//根据noTime拿到的所有餐桌（01表示）[0,1.1,0..]
+            tables: [],// 实际用来展示
             windows: [],
             smoking: [],
             time: [],
             noTime: [],//中午和晚上都不可被选择的餐桌
-            random: [],
+            random: [],//表示所有餐桌，数组形式,[1,2....]
             number: null,//选择的餐桌号
             rest: 0, //rest为0的时候代表用户没有选择餐桌
-            show: false//是否显示订单
+            show: false,//是否显示订单
+            modalShow: false
         }
         this.tablesOnchang = this.tablesOnchang.bind(this);
         this.seatsOnchange = this.seatsOnchange.bind(this);
@@ -36,6 +37,11 @@ class Booking extends React.Component {
         this.handleReserve = this.handleReserve.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
     }
+
+    componentDidMount() {
+        this.getLayout();
+    }
+
     async getLayout() {
         await this.props.dispatch({
             type: searchRePageGetLayout,
@@ -49,6 +55,7 @@ class Booking extends React.Component {
         }
         // 中午和晚上都已经被预定的餐桌
         const noTime = layout.noon.filter(i => layout.night.indexOf(i) > -1);
+        // seats：根据noTime拿到的所有餐桌
         for (let i = 1; i <= layout.tables; i++) {
             seats.push(noTime.indexOf(i) > -1 ? 0 : 1)
             random.push(i)
@@ -58,6 +65,7 @@ class Booking extends React.Component {
     getSeats() {
         const { tables, windows, smoking, time } = this.state;
         let { seats } = this.state;
+        // 查看条件，对seats的01进行重编
         seats = seats.map((i, index) => {
             if (tables.indexOf(index + 1) > -1 && windows.indexOf(index + 1) > -1 && smoking.indexOf(index + 1) > -1 && time.indexOf(index + 1) === -1) {
                 return 1
@@ -66,7 +74,7 @@ class Booking extends React.Component {
             }
         })
         return seats.map((i, index) => (
-            <span class="item-gallery-footer wrap-pic-w" href="images/photo-gallery-01.jpg" data-lightbox="gallery-footer" rest={i} number={index + 1} onClick={this.clickSeats}>
+            <span class="item-gallery-footer wrap-pic-w" data-lightbox="gallery-footer" rest={i} number={index + 1} onClick={this.clickSeats}>
                 {index + 1}号桌
                 {!i ? <span className='cq-masking' /> : null}
             </span>
@@ -182,14 +190,18 @@ class Booking extends React.Component {
         }
     }
     handleCancel() {
-        this.setState({ show: false });
+        this.setState({ show: false, modalShow: false });
+    }
+    updateVal = () => {
+        this.getLayout();
     }
     render() {
-        const { layout, number, rest, seats, order } = this.state;
+        const { layout, number, rest, seats, order, modalShow, show } = this.state;
         return (
             <section class="section-booking bg1-pattern">
                 <div class="container">
-                {this.state.show?<Order detail={order} show={this.state.show} handleCancel={this.handleCancel} />:null} 
+                    {modalShow ? <EditModal show={modalShow} handleCancel={this.handleCancel} updateVal={this.updateVal} layout={layout} /> : null}
+                    {show ? <Order detail={order} show={show} handleCancel={this.handleCancel} /> : null}
                     <div class="row">
                         <div class="col-lg-6 p-b-30">
                             <div class="t-center">
@@ -278,6 +290,9 @@ class Booking extends React.Component {
                         </div>
 
                         <div class="col-lg-5 offset-1 p-t-115">
+                            <a onClick={() => this.setState({ modalShow: true })} style={{ fontSize: '2em', position: 'absolute', right: '1em', top: '1em' }}>
+                                <Icon type="highlight" />
+                            </a>
                             <h4 class="txt9 m-b-38">
                                 餐厅桌位{rest && seats[number - 1] ? `:  您已选中${number}号餐桌` : null}
                             </h4>

@@ -7681,7 +7681,7 @@ display:block;}
 
 .ftco-section-2 .section-2-blocks-wrapper .text {
   position: relative;
-  z-index: -1;
+  /* z-index: -1; */
   padding: 15px; }
   @media (min-width: 768px) {
     .ftco-section-2 .section-2-blocks-wrapper .text {

@@ -46,13 +46,13 @@ class NewModuleModal extends React.Component {
                         message.error('用户名或密码有误', 2)
                     }
                 } else {
-                    const result = await userRegister( { name: values.name, password: values.password });
-                    if(result.exist===1){
+                    const result = await userRegister({ name: values.name, password: values.password });
+                    if (result.exist === 1) {
                         message.warning('该用户名已存在，请注册新用户名', 2);
-                    }else if(result.exist===0){
-                        message.success(`用户${result.name}创建成功`, 2); 
+                    } else if (result.exist === 0) {
+                        message.success(`用户${result.name}创建成功`, 2);
                     }
-                    console.log('userRegister',result)
+                    console.log('userRegister', result)
                 }
                 this.props.form.resetFields();
                 console.log('Received values of form: ', values);
@@ -65,8 +65,9 @@ class NewModuleModal extends React.Component {
         const { buttonv } = this.props;
 
         // Only show error after a field is touched.
-        const usernameError = isFieldTouched('username') && getFieldError('username');
+        const usernameError = isFieldTouched('name') && getFieldError('name');
         const passwordError = isFieldTouched('password') && getFieldError('password');
+        console.log('usernameError', usernameError, 'passwordError', passwordError);
         return (
             <Modal
                 visible={this.props.show}
@@ -77,7 +78,15 @@ class NewModuleModal extends React.Component {
                 <Form layout='vertical' onSubmit={this.handleSubmit}>
                     <Form.Item validateStatus={usernameError ? 'error' : ''} help={usernameError || ''}>
                         {getFieldDecorator('name', {
-                            rules: [{ required: true, message: '请输入您的用户名!' }],
+                            rules: [
+                                {
+                                    required: true,
+                                    message: '请输入您的用户名!'
+                                }, {
+                                    pattern: /(^[^\s]).*([^\s]$)/g,
+                                    message: '前后不能输入空格',
+                                }
+                            ],
                         })(
                             <Input
                                 prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -87,7 +96,15 @@ class NewModuleModal extends React.Component {
                     </Form.Item>
                     <Form.Item validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
                         {getFieldDecorator('password', {
-                            rules: [{ required: true, message: '请输入您的密码!' }],
+                            rules: [
+                                {
+                                    required: true,
+                                    message: '请输入您的密码!'
+                                }, {
+                                    pattern: /(^[^\s]).*([^\s]$)/g,
+                                    message: '前后不能输入空格',
+                                }
+                            ],
                         })(
                             <Input
                                 prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}

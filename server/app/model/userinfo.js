@@ -9,6 +9,7 @@ module.exports = app => {
       primaryKey: true,
       autoIncrement: true,
     },
+    rid: INTEGER,
     name: STRING(255),
     password: STRING(255),
   }, {

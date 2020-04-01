@@ -1,12 +1,10 @@
 'use strict';
 const Controller = require('egg').Controller;
 const Op = require('sequelize').Op;
-
-function toInt(str) {
-  if (typeof str === 'number') return str;
-  if (!str) return str;
-  return parseInt(str, 10) || 0;
-}
+// 文件存储
+const fs = require('fs');
+const path = require('path');
+const pump = require('mz-modules/pump');
 class RestautantController extends Controller {
   async findAll() {
     const { ctx } = this;
@@ -35,6 +33,64 @@ class RestautantController extends Controller {
       ctx.body = { code: 0, data: result };
     } catch (error) {
       ctx.body = { code: -1, data: { msg: '获取数据失败' } };
+    }
+  }
+
+  async findByid() {
+    const { ctx } = this;
+    try {
+      const { id } = ctx.query;
+      const result = await ctx.model.Restaurant.findOne({
+        where: { id },
+      });
+      ctx.body = { code: 0, data: result };
+    } catch (error) {
+      ctx.body = { code: -1, data: { msg: '获取数据失败' } };
+    }
+  }
+
+  async updateRe() {
+    const { ctx } = this;
+    try {
+      const { rid: id, datas } = ctx.request.body;
+      console.log('-----28,rid', id, '-------datas', datas);
+      const restaurant = await this.ctx.model.Restaurant.findByPk(id);
+      const updateVal = {};
+      datas.forEach(item => {
+        console.log('item', item);
+        updateVal[item.name] = item.val;
+      });
+      console.log('updateVal', updateVal);
+      const result = await restaurant.update({ ...updateVal });
+      ctx.body = { code: 0, data: result };
+    } catch (error) {
+      ctx.body = { code: -1, data: { msg: '数据更新失败' } };
+    }
+  }
+
+  async upload() {
+    const { ctx } = this;
+    try {
+      const parts = this.ctx.multipart({ autoFields: true });
+      let stream,
+        img_list = [];
+      while ((stream = await parts()) != null) {
+        if (!stream.filename) {
+          break;
+        }
+        // 文件名为：时间戳+随机字符串+.文件后缀
+        const filename = (new Date()).getTime() + Math.random().toString(36).substr(2) + path.extname(stream.filename).toLocaleLowerCase();
+        console.log('filename', filename);
+        // 上传图片的目录
+        const target = 'E:/大四下/毕业设计/reservation/front/public/images3/' + filename;
+        img_list.push('images3/' + filename);
+        const writeStream = fs.createWriteStream(target);
+        await pump(stream, writeStream);
+        console.log('filename', filename);
+      }
+      this.ctx.body = { code: 0, url: img_list[0] };
+    } catch (error) {
+      ctx.body = { code: -1, data: { msg: '图片上传失败' } };
     }
   }
 }
