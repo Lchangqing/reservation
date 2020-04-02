@@ -71,7 +71,7 @@ class RestautantController extends Controller {
   async upload() {
     const { ctx } = this;
     try {
-      const parts = this.ctx.multipart({ autoFields: true });
+      const parts = ctx.multipart({ autoFields: true });
       let stream,
         img_list = [];
       while ((stream = await parts()) != null) {
@@ -80,13 +80,11 @@ class RestautantController extends Controller {
         }
         // 文件名为：时间戳+随机字符串+.文件后缀
         const filename = (new Date()).getTime() + Math.random().toString(36).substr(2) + path.extname(stream.filename).toLocaleLowerCase();
-        console.log('filename', filename);
         // 上传图片的目录
         const target = 'E:/大四下/毕业设计/reservation/front/public/images3/' + filename;
         img_list.push('images3/' + filename);
         const writeStream = fs.createWriteStream(target);
         await pump(stream, writeStream);
-        console.log('filename', filename);
       }
       this.ctx.body = { code: 0, url: img_list[0] };
     } catch (error) {
@@ -96,3 +94,4 @@ class RestautantController extends Controller {
 }
 
 module.exports = RestautantController;
+             

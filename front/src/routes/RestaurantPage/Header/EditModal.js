@@ -43,7 +43,7 @@ class EditModal extends React.Component {
                                     required: true,
                                     message: '请输入您的店铺名!'
                                 }, {
-                                    pattern: /(^[^\s]).*([^\s]$)/g,
+                                    pattern: /((^[^\s]).*([^\s]$))|(^[^\s]$)/g,
                                     message: '前后不能输入空格',
                                 }
                             ]

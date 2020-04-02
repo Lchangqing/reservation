@@ -52,6 +52,7 @@ class ImgModal extends React.Component {
                 const { url } = info.file.response;
                 updateRe({ rid: id, datas: [{ name: 'img', val: url }] }).then(rsp => {
                     this.props.updateUrl({ img: url });
+                    this.setState({ imageUrl: '' })
                     message.success('图片更改成功！');
                 })
             }

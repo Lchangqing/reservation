@@ -46,7 +46,7 @@ class DescriptionModal extends React.Component {
                                     required: true,
                                     message: '请输入您的店铺介绍!'
                                 }, {
-                                    pattern: /(^[^\s]).*([^\s]$)/g,
+                                    pattern: /((^[^\s]).*([^\s]$))|(^[^\s]$)/g,
                                     message: '前后不能输入空格',
                                 }
                             ]
@@ -62,7 +62,7 @@ class DescriptionModal extends React.Component {
                             initialValue: additional,
                             rules: [
                                 {
-                                    pattern: /(^[^\s]).*([^\s]$)/g,
+                                    pattern: /((^[^\s]).*([^\s]$))|(^[^\s]$)/g,
                                     message: '前后不能输入空格',
                                 }
                             ]

@@ -15,9 +15,13 @@ module.exports = app => {
   router.get('/api/getMenusById', controller.dishes.getMenusById);
   router.get('/api/getCommandBydid', controller.dishes.getCommandBydid);
   router.post('/api/commitCommand', controller.dishes.commitCommand);
+  router.post('/api/deleteDish', controller.dishes.deleteDish);
+  router.post('/api/editDish', controller.dishes.editDish);
+  router.post('/api/uploadDish', controller.dishes.uploadDish);
+  router.post('/api/addDish', controller.dishes.addDish);
   router.get('/api/getUsers', controller.userinfo.getUsers);
   router.post('/api/userRegister', controller.userinfo.userRegister);
   router.get('/api/getSuitsById', controller.layout.getSuitsById);
   router.post('/api/reserve', controller.layout.reserve);
-  router.post('/api/updateLayout', controller.layout.updateLayout)
+  router.post('/api/updateLayout', controller.layout.updateLayout);
 };

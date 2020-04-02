@@ -83,7 +83,7 @@ class NewModuleModal extends React.Component {
                                     required: true,
                                     message: '请输入您的用户名!'
                                 }, {
-                                    pattern: /(^[^\s]).*([^\s]$)/g,
+                                    pattern: /((^[^\s]).*([^\s]$))|(^[^\s]$)/g,
                                     message: '前后不能输入空格',
                                 }
                             ],
@@ -101,7 +101,7 @@ class NewModuleModal extends React.Component {
                                     required: true,
                                     message: '请输入您的密码!'
                                 }, {
-                                    pattern: /(^[^\s]).*([^\s]$)/g,
+                                    pattern: /((^[^\s]).*([^\s]$))|(^[^\s]$)/g,
                                     message: '前后不能输入空格',
                                 }
                             ],

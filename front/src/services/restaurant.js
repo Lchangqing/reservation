@@ -83,3 +83,43 @@ export const updateLayout = async (params) => await http({
   },
   data: params,
 }) 
+
+// 删除某条菜品
+export const deleteDish = async (params) => await http({
+  method: 'post',
+  url: '/api/deleteDish',
+  headers: {
+    'x-csrf-token': getCookie("csrfToken"),
+  },
+  data: params,
+}) 
+
+// 修改某条菜品
+export const editDish = async (params) => await http({
+  method: 'post',
+  url: '/api/editDish',
+  headers: {
+    'x-csrf-token': getCookie("csrfToken"),
+  },
+  data: params,
+}) 
+
+// 修改某条菜品图片
+export const uploadDish = async (params) => await http({
+  method: 'post',
+  url: '/api/uploadDish',
+  headers: {
+    'x-csrf-token': getCookie("csrfToken"),
+  },
+  data: params,
+}) 
+
+// 增加菜品
+export const addDish = async (params) => await http({
+  method: 'post',
+  url: '/api/addDish',
+  headers: {
+    'x-csrf-token': getCookie("csrfToken"),
+  },
+  data: params,
+}) 
