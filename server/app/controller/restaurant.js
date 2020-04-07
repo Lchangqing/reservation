@@ -94,4 +94,3 @@ class RestautantController extends Controller {
 }
 
 module.exports = RestautantController;
-             

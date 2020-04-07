@@ -1,5 +1,5 @@
 import http from '../utils/http';
-import {getCookie} from '../utils/tools';
+import { getCookie } from '../utils/tools';
 
 export const getUsers = async (params) => await http({
   method: 'get',
@@ -16,3 +16,19 @@ export const userRegister = async (params) => await http({
   data: params,
 
 })
+
+export const geCtOrderByid = async (params) => await http({
+  method: 'get',
+  url: '/api/geCtOrderByid',
+  data: params
+})
+
+// 删除某条订单
+export const deleteReserve = async (params) => await http({
+  method: 'post',
+  url: '/api/deleteReserve',
+  headers: {
+    'x-csrf-token': getCookie("csrfToken"),
+  },
+  data: params,
+}) 

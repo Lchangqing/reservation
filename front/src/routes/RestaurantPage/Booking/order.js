@@ -19,7 +19,7 @@ export default class Order extends React.Component {
                         <Tag color="geekblue">{order.window}</Tag>
                         <Tag color="purple">{order.smoking}</Tag>
                     </Descriptions.Item>
-                    <Descriptions.Item label="姓命">
+                    <Descriptions.Item label="姓名">
                         {order.name}
                     </Descriptions.Item>
                     <Descriptions.Item label="号码" span={2}>

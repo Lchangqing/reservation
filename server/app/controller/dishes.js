@@ -80,9 +80,9 @@ class DishesController extends Controller {
     const { ctx } = this;
     try {
       console.log('ctx.request.body', ctx.request.body)
-      const { name, price, id, img, describe } = ctx.request.body;
+      const { id } = ctx.request.body;
       const dishes = await ctx.model.Dishes.findByPk(id);
-      const result = await dishes.update({ name, price, img, describe });
+      const result = await dishes.update({ ...ctx.request.body });
       ctx.body = { code: 0, data: result };
     } catch (error) {
       ctx.body = { code: -1, data: { msg: '数据更新失败' } };

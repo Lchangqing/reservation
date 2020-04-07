@@ -34,6 +34,47 @@ class UserinfoController extends Controller {
     }
   }
 
+  async geCtOrderByid() {
+    const { ctx } = this;
+    try {
+      const { uid } = ctx.query;
+      const result = await ctx.model.Reserve.findAll({
+        where: { uid },
+      });
+      ctx.body = { code: 0, data: result };
+    } catch (error) {
+      ctx.body = { code: -1, data: { msg: '数据获取失败' } };
+    }
+  }
+
+  async deleteReserve() {
+    const { ctx } = this;
+    try {
+      const order = ctx.request.body;
+      const restaurant = await this.ctx.model.Layout.findOne({ where: { rid: order.rid } });
+      let { night, noon } = restaurant.dataValues;
+      if (order.time.includes('中午') && noon) {
+        noon = noon.split(',');
+        const index = noon.indexOf(`${order.number}`);
+        if (index > -1) {
+          noon.splice(index, 1);
+        }
+        await restaurant.update({ noon: noon.join(',') });
+      } else if (order.time.includes('傍晚') && night) {
+        night = night.split(',');
+        const index = night.indexOf(`${order.number}`);
+        if (index > -1) {
+          night.splice(index, 1);
+        }
+        await restaurant.update({ night: night.join(',') });
+      }
+      const result = await ctx.model.Reserve.destroy({ where: { id: order.id } });
+      ctx.body = { code: 0, data: result };
+    } catch (error) {
+      ctx.body = { code: -1, data: { msg: '获取数据失败' } };
+    }
+  }
+
   success(data) {
     this.ctx.body = {
       success: true,

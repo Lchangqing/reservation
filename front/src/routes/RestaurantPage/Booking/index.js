@@ -1,14 +1,15 @@
 /* eslint-disable radix */
 import { connect } from 'dva';
 import React from 'react';
-import { searchRePageGetLayout } from '../../../models/actionType';
+import { searchRePageGetLayout, userGetUserOrders } from '../../../models/actionType';
 import { reserve } from '../../../services/restaurant';
 import cookie from 'react-cookies';
-import { message, Icon } from 'antd';
+import { message, Icon, Modal } from 'antd';
 import Order from './order';
 import './main.css';
 import './util.css';
 import EditModal from './EditModal';
+const { confirm } = Modal;
 function mapStateToProps(state) {
     return { searchRePage: state.searchRePage, user: state.user };
 }
@@ -39,7 +40,16 @@ class Booking extends React.Component {
     }
 
     componentDidMount() {
-        this.getLayout();
+        this.setLayout();
+    }
+
+    unsafe_componentWillReceiveProps(nextProps) {
+        this.initLayout(nextProps);
+    }
+
+    setLayout = async () => {
+        await this.getLayout();
+        this.initLayout();
     }
 
     async getLayout() {
@@ -47,9 +57,13 @@ class Booking extends React.Component {
             type: searchRePageGetLayout,
             payload: { id: this.props.id }
         })
+
+    }
+
+    initLayout = (nextProps) => {
         let seats = [];
         let random = [];
-        const { layout } = this.props.searchRePage
+        const { layout } = nextProps?nextProps.searchRePage:this.props.searchRePage;
         if (!layout) {
             return;
         }
@@ -62,6 +76,7 @@ class Booking extends React.Component {
         }
         this.setState({ layout, seats, tables: random, windows: random, smoking: random, time: noTime, noTime, random, rest: 0 });
     }
+
     getSeats() {
         const { tables, windows, smoking, time } = this.state;
         let { seats } = this.state;
@@ -162,7 +177,7 @@ class Booking extends React.Component {
             this.setState({ time: layout.night })
         }
     }
-    async handleReserve() {
+    handleReserve() {
         const { rest, number, layout } = this.state;
         const inputName = this.inputName.value;
         const inputNumber = this.inputNumber.value;
@@ -183,17 +198,37 @@ class Booking extends React.Component {
             alert('手机号输入有误，请重新输入');
             return;
         }
-        const result = await reserve({ number, layout, name: inputName, phone: inputNumber, restaurant_name: this.props.restaurant_name, user: cookie.load('user'), rid: this.props.id })
-        if (result) {
-            this.setState({ order: result, show: true })
-            this.getLayout();
-        }
+        confirm({
+            title: '确认提交订单吗?',
+            okText: '确认',
+            okType: 'danger',
+            cancelText: '取消',
+            onOk: async () => {
+                const result = await reserve({ number, layout, name: inputName, phone: inputNumber, restaurant_name: this.props.restaurant_name, user: cookie.load('user'), rid: this.props.id })
+                if (result) {
+                    this.setState({ order: result, show: true })
+                    this.setLayout();
+                    this.getOrders();
+                }
+            },
+            onCancel() {
+                return;
+            },
+        });
     }
+
+    getOrders = async () => {
+        await this.props.dispatch({
+            type: userGetUserOrders,
+            payload: { uid: cookie.load('user').id }
+        })
+    }
+
     handleCancel() {
         this.setState({ show: false, modalShow: false });
     }
     updateVal = () => {
-        this.getLayout();
+        this.setLayout();
     }
     render() {
         const { layout, number, rest, seats, order, modalShow, show } = this.state;

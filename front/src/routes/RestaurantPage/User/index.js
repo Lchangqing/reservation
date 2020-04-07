@@ -4,6 +4,7 @@ import { getReById } from '../../../services/restaurant';
 import { withRouter } from "react-router-dom";
 import cookie from 'react-cookies';
 import Login from '../Login';
+import Corders from './Corders';
 const { confirm } = Modal;
 class User extends React.Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class User extends React.Component {
         this.state = {
             show: false,
             user,
-            buttonv: ''
+            buttonv: '',
+            corderShow: false
         }
         this.showModal = this.showModal.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -28,7 +30,7 @@ class User extends React.Component {
         this.setState({ show: true, buttonv: e });
     }
     handleCancel() {
-        this.setState({ show: false });
+        this.setState({ show: false, corderShow: false });
     }
     updateUserInfo(user) {
         this.setState({ user })
@@ -57,8 +59,11 @@ class User extends React.Component {
         const ad = await getReById({ id: user.rid });
         this.props.history.push({ pathname: '/RestaurantPage', state: { ad: ad, update: 1 } });
     }
+    showCorder = () => {
+        this.setState({ corderShow: true });
+    }
     render() {
-        const { show, user, buttonv } = this.state;
+        const { show, user, buttonv, corderShow } = this.state;
         const content = (
             <div>
                 <a onClick={() => this.showModal('l')}>登录</a>
@@ -76,7 +81,7 @@ class User extends React.Component {
                         <hr />
                     </div>
                 ) : null}
-                <a onClick={() => this.showModal('l')}>我的订单</a>
+                <a onClick={() => this.showCorder('l')}>我的订单</a>
                 <hr />
                 <a onClick={() => this.handleLogout()}>退出登录</a>
             </div>
@@ -84,6 +89,7 @@ class User extends React.Component {
         return (
             <div className="navbar-nav " style={{ color: 'white' }}>
                 <Login show={show} handleCancel={this.handleCancel} updateUserInfo={this.updateUserInfo} buttonv={buttonv} />
+                <Corders show={corderShow} handleCancel={this.handleCancel} uid={user.id} />
                 {user ? (
                     <Popover
                         content={content2}

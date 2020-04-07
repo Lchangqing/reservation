@@ -1,8 +1,9 @@
-import { getUsers } from '../services/user';
+import { getUsers, geCtOrderByid } from '../services/user';
 export default {
     namespace: 'user',
     state: {
-        userinfo: null
+        userinfo: null,
+        userOrders: []
     },
     reducers: {
         save(state, action) {
@@ -22,6 +23,17 @@ export default {
                 console.log('getUsersInfo報錯', error);
             }
         },
+        *getUserOrders(action, { call, put }) {
+            try {
+                const { uid } = action.payload;
+                const result = yield call(geCtOrderByid, { uid });
+                if (result.length) {
+                    yield put({ type: 'save', payload: { userOrders: result } })
+                }
+            } catch (error) {
+                console.log('getUsersInfo報錯', error);
+            }
+        },
     },
-    
+
 }

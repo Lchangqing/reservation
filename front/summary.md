@@ -39,3 +39,5 @@
 20. 正则表达式生成器https://regexper.com/
 21. 定义一个变量，他的值为另外两个变量值的差。但是这个变量拿到的却是undefined
     - 可能是Chrome断点的一点小问题
+22. dispatch后修改了store里面的数据，但是组件中拿到的还是旧的数据
+    - 问题在于钩子函数componentWillReceiveProps的使用，他会带有参数nextprops，该参数得到的即为最新的值，而通过this.props得到的值为旧的值

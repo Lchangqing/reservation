@@ -18,7 +18,7 @@ class MainPage extends React.Component {
         return path.includes('DetailPage') || path.includes('RestaurantPage')
     }
     render() {
-        console.log('this.props.searchRePage.searchWords ', this.props.searchRePage.searchWords);
+        console.log('this.props.children ', this.props.children);
         return (
             <div id="colorlib-page">
                 {!this.sideBar() ? <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a> : null}

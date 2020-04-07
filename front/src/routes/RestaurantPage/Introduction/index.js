@@ -54,7 +54,7 @@ class Introduction extends React.Component {
             </div>
           </div>
         </div>
-      </section >
+      </section>
     )
   }
 }
