@@ -2,6 +2,10 @@ import React from 'react';
 import { connect } from 'dva';
 import { Icon } from 'antd';
 import EditModal from './EditModal';
+import cookie from 'react-cookies';
+function mapStateToProps(state) {
+    return { user: state.user };
+}
 class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -13,6 +17,21 @@ class Header extends React.Component {
         this.handleCancel = this.handleCancel.bind(this);
         this.updateName = this.updateName.bind(this);
     }
+    componentDidMount() {
+        this.getEdit();
+    }
+    componentDidUpdate() {
+        this.getEdit();
+    }
+    getEdit = () => {
+        const user = cookie.load('user');
+        const { showEdit } = this.state;
+        if (user && user.rid && user.rid === this.props.rid && !showEdit) {
+            this.setState({ showEdit: true });
+        } else if (!user && showEdit) {
+            this.setState({ showEdit: false });
+        }
+    }
     showModal() {
         this.setState({ show: true });
     }
@@ -23,7 +42,7 @@ class Header extends React.Component {
         this.setState({ name });
     }
     render() {
-        const { show, name } = this.state;
+        const { show, name, showEdit } = this.state;
         const { rid } = this.props;
         return (
             <div>
@@ -36,7 +55,11 @@ class Header extends React.Component {
                                 <div className="col-md-10 col-sm-12 ">
                                     <h1 className="m-b-200" >
                                         {name || ''}
-                                        <a style={{ fontSize: '0.5em' }} onClick={() => this.showModal()} > <Icon type="highlight" /></a>
+                                        {
+                                            showEdit ?
+                                                <a style={{ fontSize: '0.5em' }} onClick={() => this.showModal()} > <Icon type="highlight" /></a>
+                                                : null
+                                        }
                                     </h1>
                                 </div>
                             </div>
@@ -47,4 +70,4 @@ class Header extends React.Component {
         )
     }
 }
-export default connect()(Header)
+export default connect(mapStateToProps)(Header)

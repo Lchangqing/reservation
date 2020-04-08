@@ -4,6 +4,7 @@ import { Modal, Form, Input, Button, Icon, Row, Col, message } from 'antd';
 import cookie from 'react-cookies';
 import { userGetUsersInfo } from '../../../models/actionType';
 import { userRegister } from '../../../services/user';
+import Coding from './Coding';
 function mapStateToProps(state) {
     return { user: state.user };
 }
@@ -16,7 +17,8 @@ class NewModuleModal extends React.Component {
         super(props)
 
         this.state = {
-            show: this.props.show
+            show: this.props.show,
+            shouldUpdate: false
         }
     }
     componentDidMount() {
@@ -55,11 +57,14 @@ class NewModuleModal extends React.Component {
                     console.log('userRegister', result)
                 }
                 this.props.form.resetFields();
-                console.log('Received values of form: ', values);
+                this.setState({ shouldUpdate: true })
 
             }
         });
     };
+    switchUpdate = () => {
+        this.setState({ shouldUpdate: false });
+    }
     render() {
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
         const { buttonv } = this.props;
@@ -113,6 +118,7 @@ class NewModuleModal extends React.Component {
                             />,
                         )}
                     </Form.Item>
+                    <Coding form={this.props.form} shouldUpdate={this.state.shouldUpdate} switchUpdate={this.switchUpdate} />
                     <Form.Item style={{ marginBottom: -10 }}>
                         <Row>
                             <Col span={24} style={{ textAlign: 'right' }}>

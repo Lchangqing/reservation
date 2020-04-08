@@ -17,9 +17,9 @@ export const userRegister = async (params) => await http({
 
 })
 
-export const geCtOrderByid = async (params) => await http({
+export const getOrderByid = async (params) => await http({
   method: 'get',
-  url: '/api/geCtOrderByid',
+  url: '/api/getOrderByid',
   data: params
 })
 

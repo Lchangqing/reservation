@@ -4,7 +4,11 @@ import { Link } from 'dva/router';
 import { Popover, Modal, message } from 'antd';
 import { deleteDish } from '../../../../../services/restaurant'
 import EditModal from './EditModal';
+import cookie from 'react-cookies';
 const { confirm } = Modal;
+function mapStateToProps(state) {
+    return { user: state.user };
+}
 class Item extends React.Component {
     constructor(props) {
         super(props);
@@ -14,6 +18,25 @@ class Item extends React.Component {
         this.handleCancel = this.handleCancel.bind(this);
         this.updateVal = this.updateVal.bind(this);
     }
+
+    componentDidMount() {
+        this.getEdit();
+    }
+
+    componentDidUpdate() {
+        this.getEdit();
+    }
+
+    getEdit = () => {
+        const user = cookie.load('user');
+        const { showEdit } = this.state;
+        if (user && user.rid && user.rid === this.props.rid && !showEdit) {
+            this.setState({ showEdit: true });
+        } else if (!user && showEdit) {
+            this.setState({ showEdit: false });
+        }
+    }
+
     handleCancel() {
         this.setState({ show: false });
     }
@@ -67,8 +90,9 @@ class Item extends React.Component {
             </Link>
         )
     }
+
     render() {
-        const { show } = this.state;
+        const { show, showEdit } = this.state;
         const content = (
             <div>
                 <a onClick={() => this.handleDelete()}>删除该项</a>
@@ -77,7 +101,7 @@ class Item extends React.Component {
             </div>
         );
         return (
-            1 ?
+            showEdit ?
                 (
                     <div>
                         <EditModal key={this.props.key} handleCancel={this.handleCancel} show={show} details={this.props.food} updateMenu={this.props.updateMenu} />
@@ -91,4 +115,4 @@ class Item extends React.Component {
         )
     }
 }
-export default connect()(Item)
+export default connect(mapStateToProps)(Item)

@@ -5,7 +5,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import Navigation from './Navigation';
-import Nav from '../RestaurantPage/Nav'
+import Nav from '../RestaurantPage/Nav';
 import './style.css'
 function mapStateToProps(state) {
     return {

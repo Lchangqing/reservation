@@ -21,7 +21,7 @@ module.exports = app => {
   router.post('/api/addDish', controller.dishes.addDish);
   router.get('/api/getUsers', controller.userinfo.getUsers);
   router.post('/api/userRegister', controller.userinfo.userRegister);
-  router.get('/api/geCtOrderByid', controller.userinfo.geCtOrderByid);
+  router.get('/api/getOrderByid', controller.userinfo.getOrderByid);
   router.post('/api/deleteReserve', controller.userinfo.deleteReserve);
   router.get('/api/getSuitsById', controller.layout.getSuitsById);
   router.post('/api/reserve', controller.layout.reserve);

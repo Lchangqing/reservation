@@ -5,3 +5,4 @@ export const searchRePageGetMenus = 'searchRePage/getMenus';
 
 export const userGetUsersInfo = 'user/getUsersInfo';
 export const userGetUserOrders = 'user/getUserOrders';
+export const userGetReOrders = 'user/getReOrders';

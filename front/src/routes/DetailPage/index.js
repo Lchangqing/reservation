@@ -32,6 +32,15 @@ class DetailPage extends React.Component {
         const commands = await getCommandBydid({ id });
         this.setState({ commands })
     }
+
+    componentDidUpdate() {
+        const user = cookie.load('user');
+        const { showEdit } = this.state;
+        if (user && user.rid && user.rid === this.props.rid && !showEdit) {
+            this.setState({ showEdit: true });
+        }
+    }
+
     commit = async () => {
         const user = cookie.load('user');
         if (!user) {
@@ -68,7 +77,7 @@ class DetailPage extends React.Component {
     }
     render() {
         const { img, name } = this.state.menu;
-        const { commands, show, one_command, two_command } = this.state;
+        const { commands, show, one_command, two_command, showEdit } = this.state;
         return (
             <div className="site-wrap" ref={node => this.node = node}>
                 <section className="py-lg">
@@ -81,9 +90,13 @@ class DetailPage extends React.Component {
                                 <div className="post-content-body mt-3">
                                     <h1>
                                         {name}
-                                        <a style={{ position: 'absolute', top: '1em' }} onClick={() => this.setState({ show: true })}>
-                                            <Icon type="highlight" />
-                                        </a>
+                                        {
+                                            showEdit ?
+                                                <a style={{ position: 'absolute', top: '1em' }} onClick={() => this.setState({ show: true })}>
+                                                    <Icon type="highlight" />
+                                                </a>
+                                                : null
+                                        }
                                     </h1>
                                     {one_command ? one_command : <p className="mt-5">扬州是淮扬菜的发源地和中心，“淮左名都，竹西佳处”，以扬州为起点的淮扬菜，与鲁菜，川菜和粤菜并称为中国四大菜系。扬州地处江苏中部，为历史文化名城，自唐宋以来，扬州一直商贾云集，是备受文人喜好、格调高雅的慢生活城市。朱自清先生客居扬州时写过《说扬州》，称“扬州是讲究吃的好地方”。富春茶社，冶春茶社以及“共和春”，都是闻名遐迩的老字号。“菜根香”、“九炉分座”等餐饮店或已易帜，但也依稀尚存旧时的口味。淮扬美食的精髓在于刀工而最能体现刀工的一道美食莫过于文思豆腐
                                     扬州是淮扬菜的发源地和中心，“淮左名都，竹西佳处”，以扬州为起点的淮扬菜，与鲁菜，川菜和粤菜并称为中国四大菜系。扬州地处江苏中部，为历史文化名城，自唐宋以来，扬州一直商贾云集，是备受文人喜好、格调高雅的慢生活城市。朱自清先生客居扬州时写过《说扬州》，称“扬州是讲究吃的好地方”。富春茶社，冶春茶社以及“共和春”，都是闻名遐迩的老字号。“菜根香”、“九炉分座”等餐饮店或已易帜，但也依稀尚存旧时的口味。淮扬美食的精髓在于刀工而最能体现刀工的一道美食莫过于文思豆腐</p>}

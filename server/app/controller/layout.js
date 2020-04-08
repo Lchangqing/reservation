@@ -17,14 +17,14 @@ class LayOutController extends Controller {
   async reserve() {
     const { ctx } = this;
     try {
-      const { number, layout, name, phone, restaurant_name, user, rid } = ctx.request.body;
+      const { number, layout, name, phone, restaurant_name, user, rid, timeName } = ctx.request.body;
       const { noon, night, stables, mtables, no_smoking, no_window } = layout;
       const restaurant = await this.ctx.model.Layout.findOne({ where: { rid } });
       let time,
         smoking,
         window,
         table;
-      if (!noon.includes(number)) {
+      if (!noon.includes(number) && timeName === 'noon') {
         time = '中午时段';
         await restaurant.update({ noon: noon.concat(number).join(',') });
       } else {
@@ -33,7 +33,7 @@ class LayOutController extends Controller {
       }
       if (stables.includes(number)) { table = '小桌（容纳1-6人）'; } else if (mtables.includes(number)) { table = '大桌（容纳6-12人）'; } else { table = '聚餐桌（容纳12-20人）'; }
       if (no_smoking.includes(number)) { smoking = '雅静无烟区'; } else { smoking = '热闹区'; }
-      if (no_window.includes(number)) { window = '临窗'; } else { window = '不临窗'; }
+      if (no_window.includes(number)) { window = '不临窗'; } else { window = '临窗'; }
       const result = await ctx.model.Reserve.create({ uid: user.id, rid, time, smoking, window, table, name, phone, number, restaurant_name });
       ctx.body = { code: 0, data: result };
     } catch (error) {

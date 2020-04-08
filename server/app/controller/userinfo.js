@@ -34,12 +34,12 @@ class UserinfoController extends Controller {
     }
   }
 
-  async geCtOrderByid() {
+  async getOrderByid() {
     const { ctx } = this;
     try {
-      const { uid } = ctx.query;
+      console.log('...ctx.query.body ', { ...ctx.query })
       const result = await ctx.model.Reserve.findAll({
-        where: { uid },
+        where: { ...ctx.query },
       });
       ctx.body = { code: 0, data: result };
     } catch (error) {

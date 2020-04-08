@@ -1,7 +1,7 @@
 import { List, Empty, Descriptions, Tag, Modal, message } from 'antd';
 import { connect } from 'dva';
 import { deleteReserve } from '../../../services/user';
-import { userGetUserOrders, searchRePageGetLayout } from '../../../models/actionType';
+import { userGetReOrders, searchRePageGetLayout } from '../../../models/actionType';
 import React from 'react';
 const { confirm } = Modal
 function mapStateToProps(state) {
@@ -13,28 +13,22 @@ class Corders extends React.Component {
     }
     getOrders = async () => {
         await this.props.dispatch({
-            type: userGetUserOrders,
-            payload: { uid: this.props.uid }
+            type: userGetReOrders,
+            payload: { rid: this.props.rid }
         })
     }
 
     setOrders = () => {
         const listData = [];
-        const { userOrders } = this.props.user;
-        userOrders.forEach(item => {
+        const { reOrders } = this.props.user;
+        reOrders.forEach(item => {
             listData.push({
                 order: item,
                 content:
                     (
                         <Descriptions bordered>
-                            <Descriptions.Item label="店铺" span={3}>{item.restaurant_name}</Descriptions.Item>
                             <Descriptions.Item label="餐桌" span={2}>{item.number}号餐桌</Descriptions.Item>
                             <Descriptions.Item label="用餐时段" span={1}>{item.time}</Descriptions.Item>
-                            <Descriptions.Item label="用餐环境" span={3}>
-                                <Tag color="blue">{item.table}</Tag>
-                                <Tag color="geekblue">{item.window}</Tag>
-                                <Tag color="purple">{item.smoking}</Tag>
-                            </Descriptions.Item>
                             <Descriptions.Item label="姓名">
                                 {item.name}
                             </Descriptions.Item>
@@ -84,7 +78,7 @@ class Corders extends React.Component {
                 width={600}
             >
                 {
-                    1 && listData.length ?
+                    1 && listData ?
                         (<List
                             itemLayout="vertical"
                             size="large"
@@ -92,7 +86,7 @@ class Corders extends React.Component {
                                 onChange: page => {
                                     console.log(page);
                                 },
-                                pageSize: 2,
+                                pageSize: 4,
                             }}
                             dataSource={listData}
                             renderItem={item => (

@@ -4,8 +4,9 @@ import { searchRePageGetMenus } from '../../../models/actionType';
 import { Icon } from 'antd';
 import Classify from './Classify';
 import AddModal from './AddModal';
+import cookie from 'react-cookies';
 function mapStateToProps(state) {
-    return { searchRePage: state.searchRePage };
+    return { searchRePage: state.searchRePage, user: state.user };
 }
 class Menu extends React.Component {
     constructor(props) {
@@ -19,6 +20,21 @@ class Menu extends React.Component {
 
     componentDidMount() {
         this.getMenus();
+        this.getEdit();
+    }
+
+    componentDidUpdate() {
+        this.getEdit();
+    }
+
+    getEdit = () => {
+        const user = cookie.load('user');
+        const { showEdit } = this.state;
+        if (user && user.rid && user.rid === this.props.rid && !showEdit) {
+            this.setState({ showEdit: true });
+        } else if (!user && showEdit) {
+            this.setState({ showEdit: false });
+        }
     }
 
     getMenus = async () => {
@@ -66,7 +82,7 @@ class Menu extends React.Component {
         this.setState({ ...val });
     }
     render() {
-        const { show } = this.state;
+        const { show, showEdit } = this.state;
         return (
             <section className="ftco-section bg-light">
                 <div className="container">
@@ -81,9 +97,14 @@ class Menu extends React.Component {
                         <div className="col-md-12 dish-menu">
                             <div className="nav nav-pills justify-content-center " id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 {this.getNavs()}
-                                <a style={{ fontSize: '2em', position: 'absolute', right: '1em', top: '1em' }} onClick={() => this.showModal()}>
-                                    <Icon type="plus" />
-                                </a>
+                                {
+                                    showEdit ?
+                                        <a style={{ fontSize: '2em', position: 'absolute', right: '1em', top: '1em' }} onClick={() => this.showModal()}>
+                                            <Icon type="plus" />
+                                        </a>
+                                        : null
+                                }
+
                             </div>
                             <div className="tab-content py-5" id="v-pills-tabContent">
                                 {this.setMenus()}
