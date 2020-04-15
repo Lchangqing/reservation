@@ -2,7 +2,6 @@ import AdPage from '../routes/AdPage';
 export default [
     {
         path:'/adPage',
-        exact:true,
         component:AdPage,
     },
     {

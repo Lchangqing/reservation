@@ -3,6 +3,8 @@ import { Layout } from 'antd';
 import { connect } from 'dva';
 import Sider from './Sider';
 import { MenuUnfoldOutlined, MenuFoldOutlined, } from '@ant-design/icons';
+import { DndProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import './index.less';
 const { Content, Header } = Layout;
 class MainPage extends React.Component {
@@ -15,7 +17,7 @@ class MainPage extends React.Component {
 
     toggle = () => {
         this.child.toggle();
-        console.log('this.child', this.child,this.child.toggle())
+        console.log('this.child', this.child, this.child.toggle())
         this.setState({
             collapsed: !this.state.collapsed,
         });
@@ -38,7 +40,9 @@ class MainPage extends React.Component {
                             overflow: 'inherit'
                         }}
                     >
-                        {this.props.children}
+                        <DndProvider backend={HTML5Backend}>
+                            {this.props.children}
+                        </DndProvider>
                     </Content>
                 </Layout>
             </Layout>

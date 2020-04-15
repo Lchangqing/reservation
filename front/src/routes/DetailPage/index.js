@@ -36,7 +36,7 @@ class DetailPage extends React.Component {
     componentDidUpdate() {
         const user = cookie.load('user');
         const { showEdit } = this.state;
-        if (user && user.rid && user.rid === this.props.rid && !showEdit) {
+        if (user && user.rid && user.rid === this.props.location.state.rid && !showEdit) {
             this.setState({ showEdit: true });
         }
     }

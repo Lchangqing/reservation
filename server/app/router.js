@@ -12,6 +12,7 @@ module.exports = app => {
   router.post('/api/updateRe', controller.restaurant.updateRe);
   router.post('/api/upload', controller.restaurant.upload);
   router.get('/api/getAds', controller.ads.getAds);
+  router.post('/api/updataAds', controller.ads.updataAds);
   router.get('/api/getMenusById', controller.dishes.getMenusById);
   router.get('/api/getCommandBydid', controller.dishes.getCommandBydid);
   router.post('/api/commitCommand', controller.dishes.commitCommand);

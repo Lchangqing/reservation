@@ -1,3 +1,4 @@
+# bug调试总结
 1. 外部引入的css文件不生效：
     - dva自带的框架使用的是cssModule，所以需要禁用这种模式才能生效
 2. render出的内容没有渲染(布局都在，css样式也生效)：
@@ -41,3 +42,5 @@
     - 可能是Chrome断点的一点小问题
 22. dispatch后修改了store里面的数据，但是组件中拿到的还是旧的数据
     - 问题在于钩子函数componentWillReceiveProps的使用，他会带有参数nextprops，该参数得到的即为最新的值，而通过this.props得到的值为旧的值
+
+    # 工具总结

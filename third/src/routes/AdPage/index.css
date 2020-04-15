@@ -1,0 +1,16 @@
+tr.drop-over-downward td {
+  border-bottom: 2px dashed #1890ff;
+}
+
+tr.drop-over-upward td {
+  border-top: 2px dashed #1890ff;
+}
+
+.ad-buttons {
+  text-align: right;
+  margin-bottom: 1em;
+}
+
+.ad-buttons button {
+  margin-left: 1em;
+}
