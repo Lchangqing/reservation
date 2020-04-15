@@ -12,6 +12,7 @@ module.exports = app => {
     rid: INTEGER,
     name: STRING(255),
     password: STRING(255),
+    restaurant: STRING(255),
   }, {
     timestamps: false, // 去除createAt updateAt
     freezeTableName: true, // 使用自定义表名

@@ -21,9 +21,12 @@ module.exports = app => {
   router.post('/api/uploadDish', controller.dishes.uploadDish);
   router.post('/api/addDish', controller.dishes.addDish);
   router.get('/api/getUsers', controller.userinfo.getUsers);
+  router.get('/api/searchUserByName', controller.userinfo.searchUserByName);
   router.post('/api/userRegister', controller.userinfo.userRegister);
   router.get('/api/getOrderByid', controller.userinfo.getOrderByid);
   router.post('/api/deleteReserve', controller.userinfo.deleteReserve);
+  router.post('/api/deleteUser', controller.userinfo.deleteUser);
+  router.get('/api/resetPassword', controller.userinfo.resetPassword);
   router.get('/api/getSuitsById', controller.layout.getSuitsById);
   router.post('/api/reserve', controller.layout.reserve);
   router.post('/api/updateLayout', controller.layout.updateLayout);

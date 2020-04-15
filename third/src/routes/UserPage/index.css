@@ -1,0 +1,4 @@
+.userpage-warpper .ant-table-container table>thead>tr:first-child th:nth-last-child(2) {
+  display: flex;
+  justify-content: center;
+}

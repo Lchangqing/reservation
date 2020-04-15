@@ -1,5 +1,6 @@
 'use strict';
 const { Controller } = require('egg');
+const Op = require('sequelize').Op;
 class UserinfoController extends Controller {
   async getUsers() {
     const { ctx } = this;
@@ -13,6 +14,23 @@ class UserinfoController extends Controller {
       ctx.body = { code: 0, data: result };
     } catch (error) {
       ctx.body = { code: -1, data: { msg: '获取数据失败' } };
+    }
+  }
+
+  async searchUserByName() {
+    const { ctx } = this;
+    try {
+      const { name } = ctx.query;
+      const result = await ctx.model.Userinfo.findAll({
+        where: {
+          name: {
+            [Op.like]: `%${name}%`,
+          },
+        },
+      });
+      ctx.body = { code: 0, data: result };
+    } catch (error) {
+      ctx.body = { code: -1, data: { msg: '数据插入失败' } };
     }
   }
 
@@ -72,6 +90,29 @@ class UserinfoController extends Controller {
       ctx.body = { code: 0, data: result };
     } catch (error) {
       ctx.body = { code: -1, data: { msg: '获取数据失败' } };
+    }
+  }
+
+  async resetPassword() {
+    const { ctx } = this;
+    try {
+      const { id } = ctx.query;
+      const user = await this.ctx.model.Userinfo.findByPk(id);
+      const result = await user.update({ password: 123456 });
+      ctx.body = { code: 0, data: result };
+    } catch (error) {
+      ctx.body = { code: -1, data: { msg: '重置密码失败' } };
+    }
+  }
+
+  async deleteUser() {
+    const { ctx } = this;
+    try {
+      const { id } = ctx.request.body;
+      const result = await this.ctx.model.Userinfo.destroy({ where: { id } });
+      ctx.body = { code: 0, data: result };
+    } catch (error) {
+      ctx.body = { code: -1, data: { msg: '重置密码失败' } };
     }
   }
 

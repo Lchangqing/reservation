@@ -106,8 +106,8 @@ class NewModuleModal extends React.Component {
                                     required: true,
                                     message: '请输入您的密码!'
                                 }, {
-                                    pattern: /((^[^\s]).*([^\s]$))|(^[^\s]$)/g,
-                                    message: '前后不能输入空格',
+                                    pattern: /\w{6,18}/g,
+                                    message: '密码在6-18位',
                                 }
                             ],
                         })(

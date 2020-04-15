@@ -31,19 +31,21 @@ class MainPage extends React.Component {
                     <Header className="site-layout-background" style={{ padding: 0 }}>
                         {this.state.collapsed ? <MenuUnfoldOutlined className='trigger' onClick={this.toggle} /> : <MenuFoldOutlined className='trigger' onClick={this.toggle} />}
                     </Header>
-                    <Content
-                        className="site-layout-background"
-                        style={{
-                            margin: '24px 16px',
-                            padding: 24,
-                            minHeight: 280,
-                            overflow: 'inherit'
-                        }}
-                    >
-                        <DndProvider backend={HTML5Backend}>
+                    <DndProvider backend={HTML5Backend}>
+                        <Content
+                            className="site-layout-background"
+                            style={{
+                                margin: '24px 16px',
+                                padding: 24,
+                                minHeight: 280,
+                                overflow: 'inherit'
+                            }}
+                        >
+                            {/* <DndProvider backend={HTML5Backend}> */}
                             {this.props.children}
-                        </DndProvider>
-                    </Content>
+                            {/* </DndProvider> */}
+                        </Content>
+                    </DndProvider>
                 </Layout>
             </Layout>
         );

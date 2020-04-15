@@ -72,7 +72,7 @@ class AdPage extends React.Component {
     render() {
         const { addModalShow, restaurants, tmpRestaurants, editLoading } = this.state;
         return (
-            <Spin tip="Loading..." size="large" spinning={this.state.loading}>
+            <Spin tip="数据加载中..." size="large" spinning={this.state.loading}>
                 <div className="ad-buttons">
                     <Button size="large" type="primary" icon={<PlusOutlined />} onClick={this.showAddModal}>增加店铺</Button>
                     <Button size="large" type="primary" icon={<ReloadOutlined />} onClick={this.reset}>重置</Button>
