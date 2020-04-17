@@ -99,7 +99,7 @@ class Menu extends React.Component {
                                 {this.getNavs()}
                                 {
                                     showEdit ?
-                                        <a style={{ fontSize: '2em', position: 'absolute', right: '1em', top: '1em' }} onClick={() => this.showModal()}>
+                                        <a style={{ fontSize: '2em', position: 'absolute', right: '1em', top: '1em' ,zIndex:10000}} onClick={() => this.showModal()}>
                                             <Icon type="plus" />
                                         </a>
                                         : null
