@@ -86,9 +86,62 @@ class RestautantController extends Controller {
         const writeStream = fs.createWriteStream(target);
         await pump(stream, writeStream);
       }
-      this.ctx.body = { code: 0, url: img_list[0] };
+      this.ctx.body = { code: 0, data: { url: img_list[0] } };
     } catch (error) {
       ctx.body = { code: -1, data: { msg: '图片上传失败' } };
+    }
+  }
+
+  async addRestaurant() {
+    const { ctx } = this;
+    try {
+      const { restaurant, tables } = ctx.request.body;
+      console.log('restaurant, tables', restaurant, tables)
+      let result = await ctx.model.Restaurant.create({ ...restaurant });
+      result = result.dataValues;
+      console.log('result', result)
+      const user = await ctx.model.Userinfo.findByPk(restaurant.uid);
+      const result2 = await user.update({ rid: result.id, restaurant: result.name });
+      console.log('result2完成')
+
+      let no_window = '';
+      let no_smoking = '';
+      let stables = '';
+      for (let i = 1; i <= tables; i++) {
+        if (i === 1) {
+          no_window = `${i}`;
+          no_smoking = `${i}`;
+          stables = `${i}`;
+          continue;
+        }
+        no_window = no_window + `,${i}`;
+        no_smoking = no_smoking + `,${i}`;
+        stables = stables + `,${i}`;
+      }
+      console.log('no_window, no_smoking, stables, tables, rid: result.id', no_window, no_smoking, stables, tables, result.id);
+      const result3 = await ctx.model.Layout.create({ no_window, no_smoking, stables, tables, rid: result.id });
+      ctx.body = { code: 0, data: { result, result2, result3 } };
+    } catch (error) {
+      ctx.body = { code: -1, data: { msg: '数据插入失败' } };
+    }
+  }
+
+  async deleteRestaurant() {
+    const { ctx } = this;
+    try {
+      const { id } = ctx.request.body;
+      await ctx.model.Commands.destroy({ where: { rid: id } });
+      await ctx.model.Reserve.destroy({ where: { rid: id } });
+      await ctx.model.Dishes.destroy({ where: { rid: id } });
+      await ctx.model.Layout.destroy({ where: { rid: id } });
+      await ctx.model.Restaurant.destroy({ where: { id } });
+      const user = await ctx.model.Userinfo.findOne({ where: { rid: id } });
+      if (user) {
+        await user.update({ rid: null, restaurant: null });
+      }
+      ctx.body = { code: 0, data: 1 };
+    } catch (error) {
+      ctx.body = { code: -1, data: { msg: '店铺删除失败' } };
     }
   }
 }

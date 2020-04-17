@@ -5,6 +5,7 @@ module.exports = app => {
 
   const Restaurant = app.model.define('restaurant', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
+    uid: INTEGER,
     name: STRING(255),
     class: STRING(255),
     description: STRING,

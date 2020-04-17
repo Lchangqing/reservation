@@ -1,10 +1,17 @@
 import http from '../utils/http';
 import { getCookie } from '../utils/tools';
 
-//拿所有的店铺信息
+//拿所有广告位的店铺信息
 export const getAd = async (params) => await http({
   method: 'get',
   url: '/api/getAds',
+  data: params
+});
+
+//通过rid拿广告位店铺信息
+export const getAdsById = async (params) => await http({
+  method: 'get',
+  url: '/api/getAdsById',
   data: params
 });
 
@@ -25,7 +32,7 @@ export const updataAds = async (params) => await http({
   data: params,
 })
 
-//通过名字拿所有店铺信心
+//通过名字拿所有店铺
 export const getReByName = async (params) => await http({
   method: 'get',
   url: '/api/findRestaurant',
@@ -139,4 +146,44 @@ export const addDish = async (params) => await http({
     'x-csrf-token': getCookie("csrfToken"),
   },
   data: params,
-}) 
+})
+
+// 添加餐位信息
+export const addLayout = async (params) => await http({
+  method: 'post',
+  url: '/api/addLayout',
+  headers: {
+    'x-csrf-token': getCookie("csrfToken"),
+  },
+  data: params,
+})
+
+// 增加店铺
+export const addRestaurant = async (params) => await http({
+  method: 'post',
+  url: '/api/addRestaurant',
+  headers: {
+    'x-csrf-token': getCookie("csrfToken"),
+  },
+  data: params,
+})
+
+// 增加店铺
+export const upload = async (params) => await http({
+  method: 'post',
+  url: '/api/upload',
+  headers: {
+    'x-csrf-token': getCookie("csrfToken"),
+  },
+  data: params,
+})
+
+// 删除店铺
+export const deleteRestaurant = async (params) => await http({
+  method: 'post',
+  url: '/api/deleteRestaurant',
+  headers: {
+    'x-csrf-token': getCookie("csrfToken"),
+  },
+  data: params,
+})

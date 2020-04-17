@@ -76,6 +76,7 @@ class EditModal extends React.Component {
     render() {
         const { datas, selectedRowKeys, tmpRestaurants, selectedRows } = this.state;
         const rowSelection = {
+            type: 'Checkbox',
             selectedRowKeys,
             selectedRows,
             onChange: (selectedRowKeys, selectedRows) => {

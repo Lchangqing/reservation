@@ -15,6 +15,17 @@ class RestautantController extends Controller {
     ctx.body = { code: 0, data: restaurant };
   }
 
+  async getAdsById() {
+    const { ctx } = this;
+    try {
+      const { rid } = await ctx.query;
+      const result = await ctx.model.Ads.findOne({ where: { rid } });
+      ctx.body = { code: 0, data: result };
+    } catch (error) {
+      ctx.body = { code: -1, data: { msg: '数据获取失败' } };
+    }
+  }
+
   async updataAds() {
     const { ctx } = this;
     try {
