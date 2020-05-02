@@ -92,18 +92,18 @@ class Corders extends React.Component {
                             renderItem={item => (
                                 <List.Item
                                     key={item.order.id}
-                                    actions={[
-                                        <a key="list-loadmore-edit"
-                                            style={{
-                                                display: 'block',
-                                                width: 552,
-                                                textAlign: 'right',
-                                                color: 'black',
-                                                fontWeight: 'bold'
-                                            }}
-                                            onClick={this.deleteOrder.bind(this, item)}
-                                        >删除订单</a>
-                                    ]}
+                                    // actions={[
+                                    //     <a key="list-loadmore-edit"
+                                    //         style={{
+                                    //             display: 'block',
+                                    //             width: 552,
+                                    //             textAlign: 'right',
+                                    //             color: 'black',
+                                    //             fontWeight: 'bold'
+                                    //         }}
+                                    //         onClick={this.deleteOrder.bind(this, item)}
+                                    //     >删除订单</a>
+                                    // ]}
                                 >
                                     {item.content}
                                 </List.Item>

@@ -51,13 +51,14 @@ class Corders extends React.Component {
             onOk: async () => {
                 deleteReserve(order).then(async rsp => {
                     if (rsp) {
-                        const index = userOrders.forEach((item, i) => {
-                            if (item.id === order.id) {
-                                return i;
-                            }
-                        })
-                        userOrders.splice(index, 1);
-                        await this.setState({ userOrders });
+                        // const index = userOrders.forEach((item, i) => {
+                        //     if (item.id === order.id) {
+                        //         return i;
+                        //     }
+                        // })
+                        // userOrders.splice(index, 1);
+                        // await this.setState({ userOrders });
+                        await this.props.handleOrders()
                         message.success('订单删除成功');
                     }
                 })
@@ -69,8 +70,7 @@ class Corders extends React.Component {
     }
 
     render() {
-        const { userOrders } = this.state;
-        let listData = userOrders ? this.setOrders(userOrders) : this.setOrders();
+        let listData = this.setOrders();
         return (
             <Modal
                 visible={this.props.show}

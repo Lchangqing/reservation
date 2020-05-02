@@ -43,7 +43,7 @@ class User extends React.Component {
     }
     async updateUserInfo(user) {
         const { ad } = this.state;
-        if (user.rid && !ad) {
+        if (user.rid && !ad || ad && user.rid !== ad.id) {
             const ad = await getReById({ id: user.rid });
             this.setState({ ad, user })
         } else {

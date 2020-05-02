@@ -113,7 +113,7 @@ class UserPage extends React.Component {
         const { datas, loading, showAddUserModal, showOrders, orders } = this.state;
         return (
             <div style={{ margin: '2em' }} className="userpage-warpper">
-                <AddUserModal show={showAddUserModal} handleCancel={this.handleCancel} />
+                <AddUserModal handleOrders={this.handleOrders} show={showAddUserModal} handleCancel={this.handleCancel} />
                 <Corders ref={corder => this.corder = corder} show={showOrders} orders={orders} handleCancel={this.handleCancel} />
                 <div style={{ display: 'flex', justifyContent: "flex-end" }}>
                     <Search size="large" placeholder="请输入用户名" onSearch={this.searchUser} enterButton />
